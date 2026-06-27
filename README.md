@@ -56,6 +56,18 @@ La app tiene un panel separado de **Documentos** con:
 - Resumenes compartidos
 - Infografias
 
+Los recursos se cargan desde `resources.js`. Para sumar nuevas infografias, PDFs, videos o resumenes:
+
+1. Copiar el archivo en la carpeta correspondiente.
+2. Agregar una entrada en `resources.js` con `title`, `path` y `type`.
+
+Tipos soportados por el visor interno:
+
+- `pdf`
+- `image`
+- `video`
+- `docx` abre como documento externo/descarga
+
 ## Deploy en Netlify
 
 No requiere instalacion ni build.

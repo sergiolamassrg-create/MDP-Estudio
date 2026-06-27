@@ -91,35 +91,26 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar documentos"></button>
     </div>
-    <div class="offcanvas-body resources-panel">
-      <section class="resource-group">
-        <h3><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> PDF-Profe</h3>
-        <div class="resource-list">
-          <a href="documentos/PDF-Profe/SEMANA%202.pdf" target="_blank" rel="noopener">SEMANA 2.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%202.1.pdf" target="_blank" rel="noopener">Semana 2.1.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%203.pdf" target="_blank" rel="noopener">Semana 3.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%204.pdf" target="_blank" rel="noopener">SEMANA 4.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%204.1.pdf" target="_blank" rel="noopener">SEMANA 4.1.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%205.pdf" target="_blank" rel="noopener">Semana 5.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%206.pdf" target="_blank" rel="noopener">SEMANA 6.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%207.pdf" target="_blank" rel="noopener">Semana 7.pdf</a>
-          <a href="documentos/PDF-Profe/Plan%20de%20prueba.pdf" target="_blank" rel="noopener">Plan de prueba.pdf</a>
-          <a href="documentos/PDF-Profe/Ejercicio%20-%20Semana%207.docx" target="_blank" rel="noopener">Ejercicio - Semana 7.docx</a>
-        </div>
-      </section>
+    <div class="offcanvas-body resources-panel" id="resourcesPanel">
+      <p class="index-help mb-0">Cargando documentos...</p>
+    </div>
+  </div>
 
-      <section class="resource-group">
-        <h3><i class="bi bi-journal-bookmark" aria-hidden="true"></i> Resumenes</h3>
-        <div class="resource-list">
-          <a href="documentos/Resumenes/Resumen-Testing.pdf" target="_blank" rel="noopener">Resumen-Testing.pdf</a>
-          <a href="documentos/Resumenes/Testing%20-%20Primer%20Parcial%20(only)%20(1).docx" target="_blank" rel="noopener">Testing - Primer Parcial (only) (1).docx</a>
+  <div class="modal fade resource-viewer" id="resourceViewer" tabindex="-1" aria-labelledby="resourceViewerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="resourceViewerLabel">Documento</h2>
+          <div class="modal-actions">
+            <a class="btn btn-outline-accent btn-sm" id="resourceOpenNew" href="#" target="_blank" rel="noopener">
+              <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+              <span>Abrir</span>
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar visor"></button>
+          </div>
         </div>
-      </section>
-
-      <section class="resource-group">
-        <h3><i class="bi bi-image" aria-hidden="true"></i> Infografias</h3>
-        <p class="index-help mb-0">Carpeta lista para imagenes de estudio y un video de apoyo: <code>infografias/</code>.</p>
-      </section>
+        <div class="modal-body" id="resourceViewerBody"></div>
+      </div>
     </div>
   </div>
 
@@ -427,6 +418,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="resources.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

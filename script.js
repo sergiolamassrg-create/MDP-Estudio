@@ -18,6 +18,12 @@ const nextTopic = document.querySelector("#nextTopic");
 const indexContainers = Array.from(document.querySelectorAll("[data-index-list]"));
 const moduleStatusTitle = document.querySelector("#moduleStatusTitle");
 const moduleStatusCount = document.querySelector("#moduleStatusCount");
+const resourcesPanel = document.querySelector("#resourcesPanel");
+const resourceViewer = document.querySelector("#resourceViewer");
+const resourceViewerLabel = document.querySelector("#resourceViewerLabel");
+const resourceViewerBody = document.querySelector("#resourceViewerBody");
+const resourceOpenNew = document.querySelector("#resourceOpenNew");
+const resourceModal = new bootstrap.Modal(resourceViewer);
 
 let activeIndex = 0;
 let matchedIndexes = topics.map((_, index) => index);
@@ -144,6 +150,85 @@ function scrollTopSmooth() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+function encodePath(path) {
+  return path.split("/").map(encodeURIComponent).join("/");
+}
+
+function renderResources() {
+  const groups = window.MDP_RESOURCES?.groups || [];
+  if (!groups.length) {
+    resourcesPanel.innerHTML = '<p class="index-help mb-0">No hay documentos cargados todavia.</p>';
+    return;
+  }
+
+  resourcesPanel.innerHTML = groups.map((group, groupIndex) => {
+    const isOpen = groupIndex === 0 ? "is-open" : "";
+    const hidden = groupIndex === 0 ? "" : "hidden";
+    const items = group.items.map((item) => `
+      <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
+        ${item.title}
+      </button>
+    `).join("");
+
+    return `
+      <section class="resource-group ${isOpen}">
+        <button class="resource-toggle" type="button" aria-expanded="${groupIndex === 0}" data-resource-toggle>
+          <span class="resource-toggle__label"><i class="bi ${group.icon}" aria-hidden="true"></i>${group.title}</span>
+          <span class="resource-toggle__count">${group.items.length}</span>
+        </button>
+        <div class="resource-list" ${hidden}>${items}</div>
+      </section>
+    `;
+  }).join("");
+
+  resourcesPanel.querySelectorAll("[data-resource-toggle]").forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const group = toggle.closest(".resource-group");
+      const list = group.querySelector(".resource-list");
+      const isOpen = group.classList.toggle("is-open");
+      list.hidden = !isOpen;
+      toggle.setAttribute("aria-expanded", String(isOpen));
+    });
+  });
+
+  resourcesPanel.querySelectorAll(".resource-item").forEach((item) => {
+    item.addEventListener("click", () => {
+      openResource(item.dataset.resourceTitle, item.dataset.resourcePath, item.dataset.resourceType);
+    });
+  });
+}
+
+function openResource(title, path, type) {
+  resourceViewerLabel.textContent = title;
+  resourceOpenNew.href = path;
+
+  if (type === "pdf") {
+    resourceViewerBody.innerHTML = `<iframe class="resource-frame" src="${path}" title="${title}"></iframe>`;
+    resourceModal.show();
+    return;
+  }
+
+  if (type === "image") {
+    resourceViewerBody.innerHTML = `<div class="resource-image-wrap"><img src="${path}" alt="${title}"></div>`;
+    resourceModal.show();
+    return;
+  }
+
+  if (type === "video") {
+    resourceViewerBody.innerHTML = `<video class="resource-video" src="${path}" controls></video>`;
+    resourceModal.show();
+    return;
+  }
+
+  resourceViewerBody.innerHTML = `
+    <div class="resource-fallback">
+      <p>Este tipo de archivo se abre mejor fuera del navegador.</p>
+      <a class="btn btn-accent" href="${path}" target="_blank" rel="noopener">Abrir documento</a>
+    </div>
+  `;
+  resourceModal.show();
+}
+
 themeToggle?.addEventListener("click", toggleTheme);
 mobileTheme.addEventListener("click", toggleTheme);
 searchInput.addEventListener("input", filterTopics);
@@ -169,3 +254,4 @@ nextTopic.addEventListener("click", () => goToTopic(1));
 applyTheme(root.getAttribute("data-theme") || "dark");
 activateTopic(0, false);
 filterTopics();
+renderResources();
