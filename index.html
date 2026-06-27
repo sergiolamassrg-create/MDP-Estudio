@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mini app de estudio responsive para apuntes de Metodologia de Pruebas.">
+  <title>MDP-Estudio | Metodologia de Pruebas</title>
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem("mdp-theme");
+      var prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+      document.documentElement.setAttribute("data-theme", savedTheme || (prefersLight ? "light" : "dark"));
+    })();
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress__bar" id="readingProgress"></div>
+  </div>
+
+  <header class="site-header" id="top">
+    <nav class="navbar navbar-expand-lg" aria-label="Navegacion principal">
+      <div class="container">
+        <a class="navbar-brand" href="#top">MDP-Estudio</a>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu">
+            Indice
+          </button>
+          <button class="btn btn-accent d-none d-sm-inline-flex" type="button" id="themeToggle" aria-label="Alternar modo claro u oscuro">
+            <span id="themeToggleText">Modo</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container hero">
+      <div class="row align-items-end g-4">
+        <div class="col-lg-8">
+          <p class="eyebrow mb-2">Parcial 1</p>
+          <h1>Metodologia de Pruebas</h1>
+          <p class="hero__subtitle">Guia de estudio escalonada</p>
+          <p class="hero__text">Una herramienta simple para leer apuntes, repasar conceptos clave, buscar temas y moverse comodo entre secciones desde celular o escritorio.</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="search-panel" id="searchPanel">
+            <label for="searchInput" class="form-label">Buscar en los apuntes</label>
+            <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="Ej: testing, plan, caso" autocomplete="off">
+            <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite">Escribi una palabra para filtrar temas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="indexMenu" aria-labelledby="indexMenuLabel">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title h5" id="indexMenuLabel">Indice de temas</h2>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar indice"></button>
+    </div>
+    <div class="offcanvas-body">
+      <nav class="topic-index" aria-label="Indice de estudio">
+        <a href="#tema-1" data-topic-link>Tema 1 - V&V y Testing</a>
+        <a href="#tema-2" data-topic-link>Tema 2 - Plan de pruebas</a>
+        <a href="#tema-3" data-topic-link>Tema 3 - Casos de prueba</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="container app-layout">
+    <aside class="desktop-index" aria-label="Indice lateral">
+      <div class="desktop-index__box">
+        <p class="desktop-index__title">Indice</p>
+        <nav class="topic-index">
+          <a href="#tema-1">1. V&V y Testing</a>
+          <a href="#tema-2">2. Plan de pruebas</a>
+          <a href="#tema-3">3. Casos de prueba</a>
+        </nav>
+      </div>
+    </aside>
+
+    <div class="content-column">
+      <div class="alert no-results d-none" id="noResults" role="status">
+        No se encontraron temas con esa busqueda.
+      </div>
+
+      <section class="study-card" id="tema-1" data-topic data-title="Validacion Verificacion Testing">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 1</span>
+          <h2>Validacion, Verificacion y Testing</h2>
+        </div>
+        <p>Validacion y verificacion son dos controles distintos pero conectados. Validar confirma que la solucion responde a la necesidad real del usuario. Verificar confirma que lo construido respeta la especificacion, historia o criterio definido.</p>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="mini-card">
+              <h3>Validacion</h3>
+              <p>Pregunta clave: estamos construyendo el sistema correcto?</p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mini-card">
+              <h3>Verificacion</h3>
+              <p>Pregunta clave: estamos construyendo correctamente el sistema?</p>
+            </div>
+          </div>
+        </div>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Testing es verificacion dinamica porque ejecuta el software.</li>
+          <li>Las pruebas muestran defectos, pero no demuestran ausencia total de errores.</li>
+          <li>Validar temprano evita construir sobre una necesidad mal entendida.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Si el cliente necesita recuperar contrasena por email, validar es confirmar que ese flujo resuelve su necesidad. Verificar es probar que el sistema envie el email correcto cuando se usa la opcion definida.</p>
+        <div class="summary-box">
+          <strong>Resumen final:</strong> validar mira si hacemos lo correcto; verificar mira si lo hacemos bien; testing ejecuta el sistema para obtener evidencia.
+        </div>
+      </section>
+
+      <section class="study-card" id="tema-2" data-topic data-title="Plan de pruebas SPACE DIRT">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 2</span>
+          <h2>Plan de pruebas</h2>
+        </div>
+        <p>El plan de pruebas define objetivos, alcance y lineamientos para guiar el trabajo de testing. Sirve para ordenar que se prueba, quien participa, como se prueba, con que criterios y bajo que riesgos.</p>
+        <h3>Conceptos clave</h3>
+        <div class="keyword-grid">
+          <span>Scope</span>
+          <span>People</span>
+          <span>Approach</span>
+          <span>Criteria</span>
+          <span>Environment</span>
+          <span>Deliverables</span>
+          <span>Incidents</span>
+          <span>Risk</span>
+          <span>Task</span>
+        </div>
+        <h3>Ejemplo</h3>
+        <p>Para probar un ABM de usuarios, el alcance puede incluir alta, baja, modificacion y busqueda. Puede dejar fuera pruebas de usabilidad si las hace UX. Los criterios pueden exigir cero defectos bloqueantes antes de liberar.</p>
+        <div class="summary-box">
+          <strong>Resumen final:</strong> un plan de pruebas responde que, quien, como, donde, cuando, con que criterios y que riesgos existen.
+        </div>
+      </section>
+
+      <section class="study-card" id="tema-3" data-topic data-title="Casos de prueba Escenarios">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 3</span>
+          <h2>Casos de prueba</h2>
+        </div>
+        <p>Un escenario es el titulo significativo de lo que se quiere probar. Un caso de prueba es el paso a paso ejecutable con datos, precondiciones y resultado esperado.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Escenario: que se quiere probar a grandes rasgos.</li>
+          <li>Caso de prueba: como se prueba paso a paso.</li>
+          <li>Debe existir trazabilidad entre historia, criterio, escenario, caso y defecto.</li>
+          <li>Hay casos positivos y negativos.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p><strong>Escenario:</strong> inicio de sesion exitoso con credenciales validas.</p>
+        <p><strong>Caso:</strong> abrir login, ingresar email valido, ingresar contrasena correcta, presionar ingresar y verificar acceso a Home.</p>
+        <div class="summary-box">
+          <strong>Resumen final:</strong> escenario dice que probar; caso de prueba dice como probarlo y que resultado esperar.
+        </div>
+      </section>
+
+      <div class="topic-navigation" aria-label="Navegacion entre temas">
+        <button class="btn btn-outline-accent" type="button" id="prevTopic">Tema anterior</button>
+        <button class="btn btn-accent" type="button" id="nextTopic">Tema siguiente</button>
+      </div>
+    </div>
+  </main>
+
+  <button class="back-to-top" type="button" id="backToTop" aria-label="Volver arriba">Arriba</button>
+
+  <nav class="mobile-actions" aria-label="Acciones rapidas">
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu">Indice</button>
+    <button type="button" id="mobileSearch">Buscar</button>
+    <button type="button" id="mobileTop">Arriba</button>
+    <button type="button" id="mobileTheme">Modo</button>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="mb-0">MDP-Estudio - Sitio estatico listo para Netlify y GitHub Pages.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
