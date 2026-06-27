@@ -46,10 +46,15 @@ La app incluye 13 modulos:
 - Casos de Prueba
 - Escenarios para Examen
 - Resumen General
-- Documentos / PDF-Profe
+- Preguntas Modelo
+
+## Biblioteca de documentos
+
+La app tiene un panel separado de **Documentos** con:
+
+- PDF-Profe
 - Resumenes compartidos
 - Infografias
-- Preguntas Modelo
 
 ## Deploy en Netlify
 

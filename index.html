@@ -34,6 +34,10 @@
             <i class="bi bi-search" aria-hidden="true"></i>
             <span>Buscar</span>
           </button>
+          <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#resourcesMenu" aria-controls="resourcesMenu">
+            <i class="bi bi-folder2-open" aria-hidden="true"></i>
+            <span>Documentos</span>
+          </button>
           <button class="btn btn-accent d-none d-sm-inline-flex" type="button" id="themeToggle" aria-label="Alternar modo claro u oscuro">
             <i class="bi bi-circle-half" aria-hidden="true"></i>
             <span id="themeToggleText">Modo</span>
@@ -76,6 +80,46 @@
     <div class="offcanvas-body">
       <p class="index-help">Elegi un modulo para estudiar. Cada tema se abre de forma individual.</p>
       <nav class="topic-index" aria-label="Indice de estudio" data-index-list></nav>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="resourcesMenu" aria-labelledby="resourcesMenuLabel">
+    <div class="offcanvas-header">
+      <div>
+        <p class="offcanvas-kicker mb-1">Biblioteca</p>
+        <h2 class="offcanvas-title h5 mb-0" id="resourcesMenuLabel">Documentos</h2>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar documentos"></button>
+    </div>
+    <div class="offcanvas-body resources-panel">
+      <section class="resource-group">
+        <h3><i class="bi bi-file-earmark-pdf" aria-hidden="true"></i> PDF-Profe</h3>
+        <div class="resource-list">
+          <a href="documentos/PDF-Profe/SEMANA%202.pdf" target="_blank" rel="noopener">SEMANA 2.pdf</a>
+          <a href="documentos/PDF-Profe/Semana%202.1.pdf" target="_blank" rel="noopener">Semana 2.1.pdf</a>
+          <a href="documentos/PDF-Profe/Semana%203.pdf" target="_blank" rel="noopener">Semana 3.pdf</a>
+          <a href="documentos/PDF-Profe/SEMANA%204.pdf" target="_blank" rel="noopener">SEMANA 4.pdf</a>
+          <a href="documentos/PDF-Profe/SEMANA%204.1.pdf" target="_blank" rel="noopener">SEMANA 4.1.pdf</a>
+          <a href="documentos/PDF-Profe/Semana%205.pdf" target="_blank" rel="noopener">Semana 5.pdf</a>
+          <a href="documentos/PDF-Profe/SEMANA%206.pdf" target="_blank" rel="noopener">SEMANA 6.pdf</a>
+          <a href="documentos/PDF-Profe/Semana%207.pdf" target="_blank" rel="noopener">Semana 7.pdf</a>
+          <a href="documentos/PDF-Profe/Plan%20de%20prueba.pdf" target="_blank" rel="noopener">Plan de prueba.pdf</a>
+          <a href="documentos/PDF-Profe/Ejercicio%20-%20Semana%207.docx" target="_blank" rel="noopener">Ejercicio - Semana 7.docx</a>
+        </div>
+      </section>
+
+      <section class="resource-group">
+        <h3><i class="bi bi-journal-bookmark" aria-hidden="true"></i> Resumenes</h3>
+        <div class="resource-list">
+          <a href="documentos/Resumenes/Resumen-Testing.pdf" target="_blank" rel="noopener">Resumen-Testing.pdf</a>
+          <a href="documentos/Resumenes/Testing%20-%20Primer%20Parcial%20(only)%20(1).docx" target="_blank" rel="noopener">Testing - Primer Parcial (only) (1).docx</a>
+        </div>
+      </section>
+
+      <section class="resource-group">
+        <h3><i class="bi bi-image" aria-hidden="true"></i> Infografias</h3>
+        <p class="index-help mb-0">Carpeta lista para imagenes de estudio y un video de apoyo: <code>infografias/</code>.</p>
+      </section>
     </div>
   </div>
 
@@ -334,60 +378,9 @@
         <div class="summary-box"><strong>Resumen final:</strong> el parcial pide entender conceptos y aplicarlos en escenarios/casos.</div>
       </section>
 
-      <section class="study-card" id="tema-13" data-topic data-title="Documentos PDF Profe clases teoria pdf documentos">
+      <section class="study-card" id="tema-13" data-topic data-title="Preguntas modelo respuestas examen final">
         <div class="study-card__header">
-          <span class="topic-number">Documentos</span>
-          <h2>PDF-Profe</h2>
-        </div>
-        <p>Material teorico compartido por el profesor. Estos archivos quedan dentro del repo para que funcionen tambien cuando el sitio este publicado en Netlify o GitHub Pages.</p>
-        <h3>PDFs y archivos de clase</h3>
-        <div class="resource-list">
-          <a href="documentos/PDF-Profe/SEMANA%202.pdf" target="_blank" rel="noopener">SEMANA 2.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%202.1.pdf" target="_blank" rel="noopener">Semana 2.1.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%203.pdf" target="_blank" rel="noopener">Semana 3.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%204.pdf" target="_blank" rel="noopener">SEMANA 4.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%204.1.pdf" target="_blank" rel="noopener">SEMANA 4.1.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%205.pdf" target="_blank" rel="noopener">Semana 5.pdf</a>
-          <a href="documentos/PDF-Profe/SEMANA%206.pdf" target="_blank" rel="noopener">SEMANA 6.pdf</a>
-          <a href="documentos/PDF-Profe/Semana%207.pdf" target="_blank" rel="noopener">Semana 7.pdf</a>
-          <a href="documentos/PDF-Profe/Plan%20de%20prueba.pdf" target="_blank" rel="noopener">Plan de prueba.pdf</a>
-          <a href="documentos/PDF-Profe/Ejercicio%20-%20Semana%207.docx" target="_blank" rel="noopener">Ejercicio - Semana 7.docx</a>
-        </div>
-        <div class="summary-box"><strong>Resumen final:</strong> esta seccion es la biblioteca principal de teoria del profesor.</div>
-      </section>
-
-      <section class="study-card" id="tema-14" data-topic data-title="Resumenes compartidos resumen testing apuntes compañeros">
-        <div class="study-card__header">
-          <span class="topic-number">Resumenes</span>
-          <h2>Resumenes compartidos</h2>
-        </div>
-        <p>Material de apoyo armado por compañeros. Sirve para contrastar explicaciones y repasar con otro enfoque antes del parcial.</p>
-        <h3>Archivos disponibles</h3>
-        <div class="resource-list">
-          <a href="documentos/Resumenes/Resumen-Testing.pdf" target="_blank" rel="noopener">Resumen-Testing.pdf</a>
-          <a href="documentos/Resumenes/Testing%20-%20Primer%20Parcial%20(only)%20(1).docx" target="_blank" rel="noopener">Testing - Primer Parcial (only) (1).docx</a>
-        </div>
-        <div class="summary-box"><strong>Resumen final:</strong> los resumenes son apoyo; para definiciones finales conviene cruzarlos con clase y PDF-Profe.</div>
-      </section>
-
-      <section class="study-card" id="tema-15" data-topic data-title="Infografias ayuda visual imagenes video estudio">
-        <div class="study-card__header">
-          <span class="topic-number">Infografias</span>
-          <h2>Ayuda visual</h2>
-        </div>
-        <p>Espacio preparado para imagenes de estudio, mapas visuales y un video de apoyo. La carpeta ya existe dentro del repo como <strong>infografias/</strong>.</p>
-        <h3>Como usar esta carpeta</h3>
-        <ul>
-          <li>Guardar imagenes de infografias en <code>infografias/</code>.</li>
-          <li>Agregar el video de apoyo en la misma carpeta.</li>
-          <li>Cuando esten los archivos finales, se pueden enlazar aca como recursos visuales.</li>
-        </ul>
-        <div class="summary-box"><strong>Resumen final:</strong> esta seccion queda lista para sumar imagenes y video sin tocar la estructura del sitio.</div>
-      </section>
-
-      <section class="study-card" id="tema-16" data-topic data-title="Preguntas modelo respuestas examen final">
-        <div class="study-card__header">
-          <span class="topic-number">Tema 16</span>
+          <span class="topic-number">Tema 13</span>
           <h2>Preguntas Modelo</h2>
         </div>
         <p>Usa este modulo como simulacro oral o escrito. Responde sin mirar y despues compara con el apunte.</p>
@@ -420,10 +413,11 @@
   </main>
 
   <nav class="mobile-actions" aria-label="Acciones rapidas">
-    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu"><i class="bi bi-list-ul" aria-hidden="true"></i><span>Indice</span></button>
-    <button type="button" id="mobileSearch"><i class="bi bi-search" aria-hidden="true"></i><span>Buscar</span></button>
-    <button type="button" id="mobileTop"><i class="bi bi-arrow-up" aria-hidden="true"></i><span>Arriba</span></button>
-    <button type="button" id="mobileTheme"><i class="bi bi-circle-half" aria-hidden="true"></i><span id="mobileThemeText">Modo</span></button>
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu" aria-label="Abrir indice"><i class="bi bi-list-ul" aria-hidden="true"></i></button>
+    <button type="button" id="mobileSearch" aria-label="Buscar modulo"><i class="bi bi-search" aria-hidden="true"></i></button>
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#resourcesMenu" aria-controls="resourcesMenu" aria-label="Abrir documentos"><i class="bi bi-folder2-open" aria-hidden="true"></i></button>
+    <button type="button" id="mobileTop" aria-label="Volver arriba"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
+    <button type="button" id="mobileTheme" aria-label="Cambiar tema"><i class="bi bi-circle-half" aria-hidden="true"></i><span id="mobileThemeText" class="visually-hidden">Modo</span></button>
   </nav>
 
   <footer class="site-footer">
