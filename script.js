@@ -2,6 +2,7 @@ const root = document.documentElement;
 const themeToggle = document.querySelector("#themeToggle");
 const themeToggleText = document.querySelector("#themeToggleText");
 const mobileTheme = document.querySelector("#mobileTheme");
+const mobileThemeText = document.querySelector("#mobileThemeText");
 const searchInput = document.querySelector("#searchInput");
 const searchStatus = document.querySelector("#searchStatus");
 const searchPanel = document.querySelector("#searchPanel");
@@ -12,9 +13,12 @@ const progressBar = document.querySelector("#readingProgress");
 const mobileTop = document.querySelector("#mobileTop");
 const mobileSearch = document.querySelector("#mobileSearch");
 const desktopSearch = document.querySelector("#desktopSearch");
+const heroSearch = document.querySelector("#heroSearch");
 const prevTopic = document.querySelector("#prevTopic");
 const nextTopic = document.querySelector("#nextTopic");
 const indexContainers = Array.from(document.querySelectorAll("[data-index-list]"));
+const moduleStatusTitle = document.querySelector("#moduleStatusTitle");
+const moduleStatusCount = document.querySelector("#moduleStatusCount");
 
 let activeIndex = 0;
 let matchedIndexes = topics.map((_, index) => index);
@@ -24,7 +28,7 @@ function applyTheme(theme) {
   localStorage.setItem("mdp-theme", theme);
   const label = theme === "dark" ? "Modo claro" : "Modo oscuro";
   if (themeToggleText) themeToggleText.textContent = label;
-  mobileTheme.textContent = theme === "dark" ? "Claro" : "Oscuro";
+  mobileThemeText.textContent = theme === "dark" ? "Claro" : "Oscuro";
 }
 
 function toggleTheme() {
@@ -70,6 +74,9 @@ function activateTopic(index, shouldScroll = true) {
   topics.forEach((topic, topicIndex) => {
     topic.classList.toggle("is-active", topicIndex === activeIndex);
   });
+  const activeTitle = topics[activeIndex].querySelector("h2").textContent;
+  moduleStatusTitle.textContent = activeTitle;
+  moduleStatusCount.textContent = `${activeIndex + 1} / ${topics.length}`;
   renderIndexes();
   updateNavigationState();
   updateReadingProgress();
@@ -147,6 +154,7 @@ mobileSearch.addEventListener("click", () => {
   openSearch();
 });
 desktopSearch?.addEventListener("click", openSearch);
+heroSearch?.addEventListener("click", openSearch);
 closeSearch.addEventListener("click", closeSearchPanel);
 document.addEventListener("keydown", (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
