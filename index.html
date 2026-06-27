@@ -41,13 +41,13 @@
           <p class="eyebrow mb-2">Parcial 1</p>
           <h1>Metodologia de Pruebas</h1>
           <p class="hero__subtitle">Guia de estudio escalonada</p>
-          <p class="hero__text">Una herramienta simple para leer apuntes, repasar conceptos clave, buscar temas y moverse comodo entre secciones desde celular o escritorio.</p>
+          <p class="hero__text">Lee un modulo por vez, busca un tema puntual y avanza con anterior/siguiente como una mini app de estudio.</p>
         </div>
         <div class="col-lg-4">
           <div class="search-panel" id="searchPanel">
-            <label for="searchInput" class="form-label">Buscar en los apuntes</label>
-            <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="Ej: testing, plan, caso" autocomplete="off">
-            <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite">Escribi una palabra para filtrar temas.</p>
+            <label for="searchInput" class="form-label">Buscar tema de estudio</label>
+            <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="Ej: ISO, plan, agile" autocomplete="off">
+            <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite">Escribi una palabra para encontrar un modulo.</p>
           </div>
         </div>
       </div>
@@ -60,11 +60,7 @@
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar indice"></button>
     </div>
     <div class="offcanvas-body">
-      <nav class="topic-index" aria-label="Indice de estudio">
-        <a href="#tema-1" data-topic-link>Tema 1 - V&V y Testing</a>
-        <a href="#tema-2" data-topic-link>Tema 2 - Plan de pruebas</a>
-        <a href="#tema-3" data-topic-link>Tema 3 - Casos de prueba</a>
-      </nav>
+      <nav class="topic-index" aria-label="Indice de estudio" data-index-list></nav>
     </div>
   </div>
 
@@ -72,58 +68,176 @@
     <aside class="desktop-index" aria-label="Indice lateral">
       <div class="desktop-index__box">
         <p class="desktop-index__title">Indice</p>
-        <nav class="topic-index">
-          <a href="#tema-1">1. V&V y Testing</a>
-          <a href="#tema-2">2. Plan de pruebas</a>
-          <a href="#tema-3">3. Casos de prueba</a>
-        </nav>
+        <nav class="topic-index" aria-label="Indice de estudio desktop" data-index-list></nav>
       </div>
     </aside>
 
     <div class="content-column">
       <div class="alert no-results d-none" id="noResults" role="status">
-        No se encontraron temas con esa busqueda.
+        No se encontraron modulos con esa busqueda.
       </div>
 
-      <section class="study-card" id="tema-1" data-topic data-title="Validacion Verificacion Testing">
+      <section class="study-card" id="tema-1" data-topic data-title="Validacion Verificacion Testing Calidad QA QC QM Riesgos">
         <div class="study-card__header">
           <span class="topic-number">Tema 1</span>
           <h2>Validacion, Verificacion y Testing</h2>
         </div>
-        <p>Validacion y verificacion son dos controles distintos pero conectados. Validar confirma que la solucion responde a la necesidad real del usuario. Verificar confirma que lo construido respeta la especificacion, historia o criterio definido.</p>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="mini-card">
-              <h3>Validacion</h3>
-              <p>Pregunta clave: estamos construyendo el sistema correcto?</p>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mini-card">
-              <h3>Verificacion</h3>
-              <p>Pregunta clave: estamos construyendo correctamente el sistema?</p>
-            </div>
-          </div>
-        </div>
+        <p>Validar confirma que la solucion responde a la necesidad real del usuario. Verificar confirma que lo construido respeta la especificacion, historia de usuario o criterio definido. Testing ejecuta el sistema para obtener evidencia.</p>
         <h3>Conceptos clave</h3>
         <ul>
-          <li>Testing es verificacion dinamica porque ejecuta el software.</li>
-          <li>Las pruebas muestran defectos, pero no demuestran ausencia total de errores.</li>
-          <li>Validar temprano evita construir sobre una necesidad mal entendida.</li>
+          <li>Validacion: estamos construyendo el sistema correcto?</li>
+          <li>Verificacion: estamos construyendo correctamente el sistema?</li>
+          <li>Testing: verificacion dinamica porque implica ejecutar software.</li>
+          <li>QA previene desde el proceso; QC controla el producto; QM gestiona calidad.</li>
         </ul>
         <h3>Ejemplo</h3>
-        <p>Si el cliente necesita recuperar contrasena por email, validar es confirmar que ese flujo resuelve su necesidad. Verificar es probar que el sistema envie el email correcto cuando se usa la opcion definida.</p>
-        <div class="summary-box">
-          <strong>Resumen final:</strong> validar mira si hacemos lo correcto; verificar mira si lo hacemos bien; testing ejecuta el sistema para obtener evidencia.
-        </div>
+        <p>En recuperacion de contrasena, validar es confirmar que el flujo resuelve la necesidad del usuario. Verificar es probar que el email se envie segun lo especificado.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> validar mira valor; verificar mira cumplimiento; testing entrega informacion para decidir.</div>
       </section>
 
-      <section class="study-card" id="tema-2" data-topic data-title="Plan de pruebas SPACE DIRT">
+      <section class="study-card" id="tema-2" data-topic data-title="Principios del testing pruebas objetivos defectos pesticida contexto">
         <div class="study-card__header">
           <span class="topic-number">Tema 2</span>
-          <h2>Plan de pruebas</h2>
+          <h2>Principios del Testing</h2>
         </div>
-        <p>El plan de pruebas define objetivos, alcance y lineamientos para guiar el trabajo de testing. Sirve para ordenar que se prueba, quien participa, como se prueba, con que criterios y bajo que riesgos.</p>
+        <p>Probamos porque el software lo hacen personas, las fallas cuestan y no se puede probar todo. Testing ayuda a priorizar por riesgo, tiempo, presupuesto y contexto.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Las pruebas muestran defectos, no ausencia total de defectos.</li>
+          <li>Las pruebas exhaustivas son imposibles.</li>
+          <li>Testing temprano reduce costo.</li>
+          <li>Los defectos suelen agruparse.</li>
+          <li>La paradoja del pesticida obliga a actualizar pruebas.</li>
+          <li>El testing depende del contexto.</li>
+          <li>Ausencia de errores no significa producto util.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>No se prueba igual una app bancaria que una agenda personal: en pagos pesa mas seguridad, integridad y riesgo.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> como no podemos probar todo, probamos lo mas importante con criterio.</div>
+      </section>
+
+      <section class="study-card" id="tema-3" data-topic data-title="Desarrollo software ciclo vida metodologias cascada espiral prototipos iterativo incremental">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 3</span>
+          <h2>Desarrollo de Software</h2>
+        </div>
+        <p>El ciclo de desarrollo ordena el trabajo desde la necesidad hasta el mantenimiento. Testing no vive solo al final: participa aclarando historias, criterios, riesgos y evidencias.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Flujo: analisis, diseno, desarrollo, testing, implementacion y mantenimiento.</li>
+          <li>Modelos: cascada, espiral, prototipos, iterativos e incrementales.</li>
+          <li>Roles: PO/analista, UX/UI, desarrollo, QA, DevOps y usuarios.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Si una historia queda ambigua en analisis, QA debe preguntar antes de que desarrollo implemente algo incorrecto.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> cuanto antes participa testing, menos retrabajo aparece al final.</div>
+      </section>
+
+      <section class="study-card" id="tema-4" data-topic data-title="Agile Scrum Kanban valores principios manifesto">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 4</span>
+          <h2>Agile, Scrum y Kanban</h2>
+        </div>
+        <p>Agile prioriza colaboracion, entrega temprana, feedback y adaptacion al cambio. Scrum trabaja por sprints; Kanban organiza el flujo visualmente.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Personas e interacciones sobre procesos y herramientas.</li>
+          <li>Software funcionando sobre documentacion extensiva.</li>
+          <li>Colaboracion con cliente sobre negociacion contractual.</li>
+          <li>Respuesta ante el cambio sobre seguir un plan rigido.</li>
+          <li>Scrum: sprints, backlog, PO, Scrum Master y equipo.</li>
+          <li>Kanban: tablero, flujo continuo y limites de trabajo en progreso.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>En Scrum una historia puede planificarse para el sprint. En Kanban esa historia avanza por columnas como pendiente, en curso, prueba y terminado.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> Agile no elimina planificacion; la vuelve flexible y orientada a valor.</div>
+      </section>
+
+      <section class="study-card" id="tema-5" data-topic data-title="Historias de usuario criterios aceptacion given when then INVEST 3C">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 5</span>
+          <h2>Historias de Usuario</h2>
+        </div>
+        <p>Una historia de usuario expresa una necesidad desde el punto de vista del usuario. Debe ser clara, testeable y acompañada por criterios de aceptacion.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Formato: Como perfil, quiero necesidad, para valor.</li>
+          <li>3C: Card, Conversation, Confirmation.</li>
+          <li>INVEST: independiente, negociable, valiosa, estimable, pequena y testeable.</li>
+          <li>Criterios de aceptacion: Given, When, Then.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Given un usuario registrado, When ingresa credenciales correctas, Then accede a la Home.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> historia sin criterios queda incompleta para QA.</div>
+      </section>
+
+      <section class="study-card" id="tema-6" data-topic data-title="ISO 25010 calidad producto funcionalidad eficiencia compatibilidad usabilidad fiabilidad seguridad mantenibilidad portabilidad">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 6</span>
+          <h2>ISO 25010</h2>
+        </div>
+        <p>ISO 25010 organiza atributos de calidad del producto. Ayuda a pensar calidad mas alla de si una funcionalidad simplemente funciona.</p>
+        <h3>Conceptos clave</h3>
+        <div class="keyword-grid">
+          <span>Adecuacion funcional</span>
+          <span>Eficiencia</span>
+          <span>Compatibilidad</span>
+          <span>Usabilidad</span>
+          <span>Fiabilidad</span>
+          <span>Seguridad</span>
+          <span>Mantenibilidad</span>
+          <span>Portabilidad</span>
+        </div>
+        <h3>Ejemplo</h3>
+        <p>Un login puede funcionar, pero ademas debe ser seguro, usable, confiable y eficiente.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> calidad incluye funcionamiento, rendimiento, seguridad, uso, mantenimiento y entorno.</div>
+      </section>
+
+      <section class="study-card" id="tema-7" data-topic data-title="Testing Agile QA DEV PO calidad compartida prevenir bugs">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 7</span>
+          <h2>Testing Agile</h2>
+        </div>
+        <p>El tester agile conecta negocio y desarrollo. Participa temprano para entender requisitos, prevenir defectos y construir mejor software.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Testing durante sobre testing al final.</li>
+          <li>Prevenir bugs sobre solo encontrarlos.</li>
+          <li>Entender el sistema sobre verificar mecanicamente.</li>
+          <li>Calidad compartida por todo el equipo.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>QA participa en refinamiento y pregunta por criterios antes de que desarrollo empiece a programar.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> QA agile pregunta antes, prueba durante y comparte calidad con el equipo.</div>
+      </section>
+
+      <section class="study-card" id="tema-8" data-topic data-title="Proceso de pruebas planificacion seguimiento analisis diseno implementacion ejecucion reporte">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 8</span>
+          <h2>Proceso de Pruebas</h2>
+        </div>
+        <p>El proceso de pruebas ordena el trabajo de QA para evitar probar al azar. Cada etapa produce informacion o artefactos para avanzar.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Planificacion: objetivos, alcance, estrategia y criterios.</li>
+          <li>Seguimiento y control: metricas e indicadores.</li>
+          <li>Analisis: historias, riesgos y condiciones de prueba.</li>
+          <li>Diseno: escenarios y casos de prueba.</li>
+          <li>Implementacion: datos, ambiente y suites.</li>
+          <li>Ejecucion: resultados y evidencias.</li>
+          <li>Reporte: defectos, avance y calidad percibida.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Antes de ejecutar un caso, QA debe tener historia entendida, datos listos, ambiente disponible y resultado esperado definido.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> el proceso transforma requisitos en evidencia util para decidir.</div>
+      </section>
+
+      <section class="study-card" id="tema-9" data-topic data-title="Plan de pruebas SPACE DIRT scope people approach criteria environment deliverables incidents risk task">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 9</span>
+          <h2>Plan de Pruebas</h2>
+        </div>
+        <p>El plan de pruebas define objetivos, alcance y lineamientos. La regla SPACE DIRT ayuda a recordar sus componentes.</p>
         <h3>Conceptos clave</h3>
         <div class="keyword-grid">
           <span>Scope</span>
@@ -137,31 +251,85 @@
           <span>Task</span>
         </div>
         <h3>Ejemplo</h3>
-        <p>Para probar un ABM de usuarios, el alcance puede incluir alta, baja, modificacion y busqueda. Puede dejar fuera pruebas de usabilidad si las hace UX. Los criterios pueden exigir cero defectos bloqueantes antes de liberar.</p>
-        <div class="summary-box">
-          <strong>Resumen final:</strong> un plan de pruebas responde que, quien, como, donde, cuando, con que criterios y que riesgos existen.
-        </div>
+        <p>Alcance: probar ABM de usuarios. Fuera de alcance: usabilidad. Criterio: cero defectos bloqueantes antes de liberar.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> un plan responde que, quien, como, donde, cuando, con que criterios y riesgos.</div>
       </section>
 
-      <section class="study-card" id="tema-3" data-topic data-title="Casos de prueba Escenarios">
+      <section class="study-card" id="tema-10" data-topic data-title="Casos de prueba escenarios ideas automatizacion drivers stubs">
         <div class="study-card__header">
-          <span class="topic-number">Tema 3</span>
-          <h2>Casos de prueba</h2>
+          <span class="topic-number">Tema 10</span>
+          <h2>Casos de Prueba</h2>
         </div>
-        <p>Un escenario es el titulo significativo de lo que se quiere probar. Un caso de prueba es el paso a paso ejecutable con datos, precondiciones y resultado esperado.</p>
+        <p>Un escenario es el titulo significativo de lo que se quiere probar. Un caso de prueba es el detalle ejecutable con pasos, datos y resultado esperado.</p>
         <h3>Conceptos clave</h3>
         <ul>
-          <li>Escenario: que se quiere probar a grandes rasgos.</li>
-          <li>Caso de prueba: como se prueba paso a paso.</li>
-          <li>Debe existir trazabilidad entre historia, criterio, escenario, caso y defecto.</li>
-          <li>Hay casos positivos y negativos.</li>
+          <li>Ideas de prueba -> escenarios -> casos -> ejecucion -> automatizacion.</li>
+          <li>Campos: ID, titulo, prioridad, precondiciones, datos, pasos, resultado esperado, estado y evidencia.</li>
+          <li>Casos positivos validan caminos correctos; negativos validan errores y limites.</li>
+          <li>Drivers y stubs ayudan cuando una parte del sistema no esta disponible.</li>
         </ul>
         <h3>Ejemplo</h3>
-        <p><strong>Escenario:</strong> inicio de sesion exitoso con credenciales validas.</p>
-        <p><strong>Caso:</strong> abrir login, ingresar email valido, ingresar contrasena correcta, presionar ingresar y verificar acceso a Home.</p>
-        <div class="summary-box">
-          <strong>Resumen final:</strong> escenario dice que probar; caso de prueba dice como probarlo y que resultado esperar.
+        <p>Escenario: login exitoso. Caso: abrir login, ingresar usuario valido, ingresar contrasena correcta, presionar ingresar y verificar Home.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> escenario dice que probar; caso de prueba dice como probarlo.</div>
+      </section>
+
+      <section class="study-card" id="tema-11" data-topic data-title="Escenarios examen login pago factura sube">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 11</span>
+          <h2>Escenarios para Examen</h2>
         </div>
+        <p>El escenario debe ser un titulo claro de lo que se quiere probar. No es el paso a paso completo.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Inicio de sesion exitoso con credenciales validas.</li>
+          <li>Inicio de sesion rechazado con contrasena incorrecta.</li>
+          <li>Pago exitoso de factura con comprobante generado.</li>
+          <li>Recarga SUBE rechazada por monto fuera de rango.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Si piden 3 escenarios de login, no escribas pasos. Escribi situaciones: exitoso, credenciales invalidas, campos vacios.</p>
+        <div class="summary-box"><strong>Resumen final:</strong> en examen, escenario claro y especifico vale mas que una frase generica.</div>
+      </section>
+
+      <section class="study-card" id="tema-12" data-topic data-title="Resumen general parcial mapa mental repaso">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 12</span>
+          <h2>Resumen General</h2>
+        </div>
+        <p>Este modulo sirve para repasar antes del parcial y conectar todos los temas.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>V&V: correcto para el usuario vs correcto segun especificacion.</li>
+          <li>Testing: ejecucion, evidencia e informacion.</li>
+          <li>Agile: colaboracion, cambio y entrega de valor.</li>
+          <li>Historias: perfil, necesidad, valor y criterios.</li>
+          <li>ISO 25010: mapa de calidad.</li>
+          <li>Plan y casos: ordenar, ejecutar y reportar.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Si te dan una historia, primero preguntate: entiendo la necesidad?, tiene criterios?, que riesgos hay?, que escenarios salen?</p>
+        <div class="summary-box"><strong>Resumen final:</strong> el parcial pide entender conceptos y aplicarlos en escenarios/casos.</div>
+      </section>
+
+      <section class="study-card" id="tema-13" data-topic data-title="Preguntas modelo respuestas examen final">
+        <div class="study-card__header">
+          <span class="topic-number">Tema 13</span>
+          <h2>Preguntas Modelo</h2>
+        </div>
+        <p>Usa este modulo como simulacro oral o escrito. Responde sin mirar y despues compara con el apunte.</p>
+        <h3>Conceptos clave</h3>
+        <ul>
+          <li>Diferencie validacion y verificacion.</li>
+          <li>Explique que es testing.</li>
+          <li>Nombre los 7 principios del testing.</li>
+          <li>Explique una historia de usuario y sus criterios.</li>
+          <li>Nombre las 8 caracteristicas ISO 25010.</li>
+          <li>Explique SPACE DIRT.</li>
+          <li>Diferencie escenario y caso de prueba.</li>
+        </ul>
+        <h3>Ejemplo</h3>
+        <p>Respuesta breve: "Escenario es que probar; caso de prueba es como probarlo con pasos, datos y resultado esperado".</p>
+        <div class="summary-box"><strong>Resumen final:</strong> si podes responder estas preguntas claro y corto, estas mucho mas cerca de rendir bien.</div>
       </section>
 
       <div class="topic-navigation" aria-label="Navegacion entre temas">
@@ -170,8 +338,6 @@
       </div>
     </div>
   </main>
-
-  <button class="back-to-top" type="button" id="backToTop" aria-label="Volver arriba">Arriba</button>
 
   <nav class="mobile-actions" aria-label="Acciones rapidas">
     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu">Indice</button>

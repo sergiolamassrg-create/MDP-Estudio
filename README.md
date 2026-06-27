@@ -4,7 +4,7 @@ Sitio web estatico para estudiar **Metodologia de Pruebas** desde celular o escr
 
 ## Objetivo
 
-Crear una mini app de estudio responsive con indice, buscador, modo claro/oscuro, progreso de lectura y navegacion comoda entre temas.
+Crear una mini app de estudio responsive con modulos de lectura, indice completo, buscador de temas, modo claro/oscuro, progreso de lectura y navegacion anterior/siguiente.
 
 ## Tecnologias
 
@@ -20,11 +20,29 @@ Crear una mini app de estudio responsive con indice, buscador, modo claro/oscuro
 
 ```text
 MDP-Estudio/
-├── index.html
-├── style.css
-├── script.js
-└── README.md
+|-- index.html
+|-- style.css
+|-- script.js
+`-- README.md
 ```
+
+## Contenido inicial
+
+La app incluye 13 modulos:
+
+- Validacion, Verificacion y Testing
+- Principios del Testing
+- Desarrollo de Software
+- Agile, Scrum y Kanban
+- Historias de Usuario
+- ISO 25010
+- Testing Agile
+- Proceso de Pruebas
+- Plan de Pruebas
+- Casos de Prueba
+- Escenarios para Examen
+- Resumen General
+- Preguntas Modelo
 
 ## Deploy en Netlify
 
@@ -42,4 +60,4 @@ No requiere instalacion ni build.
 
 ## Como agregar temas
 
-Copiar una seccion con `class="study-card"` en `index.html`, cambiar el `id`, el numero de tema y el contenido. Luego agregar el enlace correspondiente en los dos indices.
+Copiar una seccion con `class="study-card"` en `index.html`, cambiar el `id`, el numero de tema y el contenido. El indice se genera automaticamente desde las secciones existentes.
