@@ -37,7 +37,7 @@ function normalizeText(value) {
 }
 
 function topicLabel(topic, index) {
-  return `${index + 1}. ${topic.querySelector("h2").textContent}`;
+  return topic.querySelector("h2").textContent;
 }
 
 function renderIndexes() {
@@ -46,7 +46,7 @@ function renderIndexes() {
     topics.forEach((topic, index) => {
       const link = document.createElement("a");
       link.href = `#${topic.id}`;
-      link.textContent = topicLabel(topic, index);
+      link.innerHTML = `<span class="topic-index__number">${index + 1}</span><span class="topic-index__text">${topicLabel(topic, index)}</span>`;
       link.dataset.topicLink = "";
       link.dataset.index = index;
       link.classList.toggle("is-active", index === activeIndex);
