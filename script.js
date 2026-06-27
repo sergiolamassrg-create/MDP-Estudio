@@ -13,7 +13,6 @@ const progressBar = document.querySelector("#readingProgress");
 const mobileTop = document.querySelector("#mobileTop");
 const mobileSearch = document.querySelector("#mobileSearch");
 const desktopSearch = document.querySelector("#desktopSearch");
-const heroSearch = document.querySelector("#heroSearch");
 const prevTopic = document.querySelector("#prevTopic");
 const nextTopic = document.querySelector("#nextTopic");
 const indexContainers = Array.from(document.querySelectorAll("[data-index-list]"));
@@ -154,7 +153,6 @@ mobileSearch.addEventListener("click", () => {
   openSearch();
 });
 desktopSearch?.addEventListener("click", openSearch);
-heroSearch?.addEventListener("click", openSearch);
 closeSearch.addEventListener("click", closeSearchPanel);
 document.addEventListener("keydown", (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {

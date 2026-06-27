@@ -140,32 +140,6 @@ h1 {
   font-size: 1.05rem;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .75rem;
-  margin-top: 1.35rem;
-}
-
-.hero-action {
-  display: inline-flex;
-  min-height: 46px;
-  align-items: center;
-  gap: .55rem;
-  padding: .65rem .95rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--text);
-  background: color-mix(in srgb, var(--card) 78%, transparent);
-  font-weight: 800;
-}
-
-.hero-action:hover,
-.hero-action:focus {
-  border-color: var(--accent);
-  outline: none;
-}
-
 .search-overlay {
   position: fixed;
   inset: 1rem 0 auto 0;
