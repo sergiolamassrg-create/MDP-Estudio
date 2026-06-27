@@ -23,6 +23,10 @@ MDP-Estudio/
 |-- index.html
 |-- style.css
 |-- script.js
+|-- documentos/
+|   |-- PDF-Profe/
+|   `-- Resumenes/
+|-- infografias/
 `-- README.md
 ```
 
@@ -42,6 +46,9 @@ La app incluye 13 modulos:
 - Casos de Prueba
 - Escenarios para Examen
 - Resumen General
+- Documentos / PDF-Profe
+- Resumenes compartidos
+- Infografias
 - Preguntas Modelo
 
 ## Deploy en Netlify

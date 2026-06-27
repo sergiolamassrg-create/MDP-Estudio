@@ -432,6 +432,49 @@ li {
   background: color-mix(in srgb, var(--accent) 11%, var(--card));
 }
 
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .65rem;
+  margin-top: .75rem;
+}
+
+.resource-list a {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  padding: .75rem .85rem;
+  border: 1px solid var(--border);
+  border-radius: .8rem;
+  color: var(--text);
+  background: var(--card-soft);
+  text-decoration: none;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.resource-list a::before {
+  content: "PDF";
+  flex: 0 0 auto;
+  margin-right: .65rem;
+  padding: .18rem .4rem;
+  border-radius: .45rem;
+  color: #06221f;
+  background: var(--accent);
+  font-size: .72rem;
+  font-weight: 900;
+}
+
+.resource-list a[href$=".docx"]::before {
+  content: "DOC";
+}
+
+.resource-list a:hover,
+.resource-list a:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
 .no-results {
   border: 1px solid var(--border);
   color: var(--text);
