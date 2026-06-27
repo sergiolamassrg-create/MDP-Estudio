@@ -28,6 +28,9 @@
           <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu">
             Indice
           </button>
+          <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" id="desktopSearch">
+            Buscar
+          </button>
           <button class="btn btn-accent d-none d-sm-inline-flex" type="button" id="themeToggle" aria-label="Alternar modo claro u oscuro">
             <span id="themeToggleText">Modo</span>
           </button>
@@ -37,22 +40,26 @@
 
     <div class="container hero">
       <div class="row align-items-end g-4">
-        <div class="col-lg-8">
+        <div class="col-lg-9">
           <p class="eyebrow mb-2">Parcial 1</p>
           <h1>Metodologia de Pruebas</h1>
           <p class="hero__subtitle">Guia de estudio escalonada</p>
-          <p class="hero__text">Lee un modulo por vez, busca un tema puntual y avanza con anterior/siguiente como una mini app de estudio.</p>
-        </div>
-        <div class="col-lg-4">
-          <div class="search-panel" id="searchPanel">
-            <label for="searchInput" class="form-label">Buscar tema de estudio</label>
-            <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="Ej: ISO, plan, agile" autocomplete="off">
-            <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite">Escribi una palabra para encontrar un modulo.</p>
-          </div>
+          <p class="hero__text">Lee un modulo por vez, analiza lo importante y avanza con anterior/siguiente.</p>
         </div>
       </div>
     </div>
   </header>
+
+  <div class="search-overlay" id="searchPanel" hidden>
+    <div class="search-panel" role="search">
+      <div class="search-panel__header">
+        <label for="searchInput" class="form-label mb-0">Buscar tema</label>
+        <button class="search-panel__close" type="button" id="closeSearch" aria-label="Cerrar busqueda">Cerrar</button>
+      </div>
+      <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="ISO, plan, agile..." autocomplete="off">
+      <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite"></p>
+    </div>
+  </div>
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="indexMenu" aria-labelledby="indexMenuLabel">
     <div class="offcanvas-header">

@@ -133,12 +133,48 @@ h1 {
   font-size: 1.05rem;
 }
 
+.search-overlay {
+  position: fixed;
+  inset: 1rem 0 auto 0;
+  z-index: 1090;
+  display: flex;
+  justify-content: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
+.search-overlay[hidden] {
+  display: none;
+}
+
 .search-panel {
-  padding: 1rem;
-  border: 1px solid var(--border);
+  width: min(620px, 100%);
+  padding: .85rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
   border-radius: 1rem;
-  background: color-mix(in srgb, var(--card) 90%, transparent);
+  background: color-mix(in srgb, var(--card) 96%, transparent);
   box-shadow: var(--shadow);
+  pointer-events: auto;
+}
+
+.search-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-bottom: .65rem;
+}
+
+.search-panel__close {
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-weight: 800;
+}
+
+.search-panel__close:hover,
+.search-panel__close:focus {
+  color: var(--accent);
 }
 
 .form-label {

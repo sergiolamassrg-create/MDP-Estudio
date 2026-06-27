@@ -4,11 +4,14 @@ const themeToggleText = document.querySelector("#themeToggleText");
 const mobileTheme = document.querySelector("#mobileTheme");
 const searchInput = document.querySelector("#searchInput");
 const searchStatus = document.querySelector("#searchStatus");
+const searchPanel = document.querySelector("#searchPanel");
+const closeSearch = document.querySelector("#closeSearch");
 const noResults = document.querySelector("#noResults");
 const topics = Array.from(document.querySelectorAll("[data-topic]"));
 const progressBar = document.querySelector("#readingProgress");
 const mobileTop = document.querySelector("#mobileTop");
 const mobileSearch = document.querySelector("#mobileSearch");
+const desktopSearch = document.querySelector("#desktopSearch");
 const prevTopic = document.querySelector("#prevTopic");
 const nextTopic = document.querySelector("#nextTopic");
 const indexContainers = Array.from(document.querySelectorAll("[data-index-list]"));
@@ -95,7 +98,7 @@ function filterTopics() {
   noResults.classList.toggle("d-none", matchedIndexes.length !== 0);
 
   if (!query) {
-    searchStatus.textContent = "Escribi una palabra para encontrar un modulo.";
+    searchStatus.textContent = "";
   } else {
     searchStatus.textContent = `${matchedIndexes.length} modulo${matchedIndexes.length === 1 ? "" : "s"} encontrado${matchedIndexes.length === 1 ? "" : "s"}.`;
   }
@@ -105,6 +108,17 @@ function filterTopics() {
   } else {
     renderIndexes();
   }
+}
+
+function openSearch() {
+  searchPanel.hidden = false;
+  window.setTimeout(() => searchInput.focus(), 0);
+}
+
+function closeSearchPanel() {
+  searchPanel.hidden = true;
+  searchInput.value = "";
+  filterTopics();
 }
 
 function updateReadingProgress() {
@@ -130,8 +144,18 @@ searchInput.addEventListener("input", filterTopics);
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
 mobileTop.addEventListener("click", scrollTopSmooth);
 mobileSearch.addEventListener("click", () => {
-  document.querySelector("#searchPanel").scrollIntoView({ behavior: "smooth", block: "center" });
-  searchInput.focus();
+  openSearch();
+});
+desktopSearch?.addEventListener("click", openSearch);
+closeSearch.addEventListener("click", closeSearchPanel);
+document.addEventListener("keydown", (event) => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+    event.preventDefault();
+    openSearch();
+  }
+  if (event.key === "Escape" && !searchPanel.hidden) {
+    closeSearchPanel();
+  }
 });
 prevTopic.addEventListener("click", () => goToTopic(-1));
 nextTopic.addEventListener("click", () => goToTopic(1));
