@@ -950,8 +950,8 @@ mark {
 }
 
 #resourcesMenu {
-  height: 100vh;
-  max-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
 }
 
 #resourcesMenu .offcanvas-body {
@@ -960,7 +960,7 @@ mark {
 }
 
 .resources-panel {
-  max-height: calc(100vh - 86px);
+  max-height: calc(100dvh - 86px);
   overflow-y: auto;
 }
 
@@ -975,4 +975,57 @@ mark {
 
 .resources-panel::-webkit-scrollbar-track {
   background: #0f172a;
+}
+
+@media (max-height: 520px) and (orientation: landscape) {
+  #resourcesMenu {
+    --bs-offcanvas-width: min(560px, 88vw);
+  }
+
+  #resourcesMenu .offcanvas-header {
+    padding: .55rem .8rem;
+  }
+
+  #resourcesMenu .offcanvas-title {
+    font-size: 1rem;
+  }
+
+  #resourcesMenu .offcanvas-kicker {
+    font-size: .64rem;
+  }
+
+  #resourcesMenu .offcanvas-body {
+    gap: .45rem;
+    padding: .55rem .75rem .75rem;
+  }
+
+  .resources-panel {
+    max-height: calc(100dvh - 58px);
+  }
+
+  .resource-group {
+    border-radius: .75rem;
+  }
+
+  .resource-toggle {
+    min-height: 42px;
+    padding: .55rem .7rem;
+  }
+
+  .resource-group.is-open .resource-list {
+    max-height: calc(100dvh - 250px);
+    min-height: 84px;
+    padding: .55rem;
+    gap: .45rem;
+  }
+
+  .resource-item {
+    min-height: 42px;
+    padding: .55rem .65rem;
+    border-radius: .65rem;
+  }
+
+  .resource-item::before {
+    margin-right: .5rem;
+  }
 }
