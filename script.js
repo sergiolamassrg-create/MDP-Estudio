@@ -65,6 +65,32 @@ function renderStudyModulesFromData() {
     "Mapa del Flujo QA": { question: "Después de criterios suelen venir...", options: ["Análisis y escenarios", "Release directo", "Debugging sin probar"], answer: 0 },
     "Errores y Defectos": { question: "Failure es...", options: ["Falla observable", "Plan de sprint", "Ambiente"], answer: 0 }
   };
+  const infographicByTitle = {
+    "Validación, Verificación y Testing": "infografias/01_VV_Testing_Calidad.png",
+    "Calidad de Software": "infografias/01_VV_Testing_Calidad.png",
+    "QA, QC, QM y Testing": "infografias/01_VV_Testing_Calidad.png",
+    "Principios del Testing": "infografias/02_Principios_Testing.png",
+    "Riesgos en Testing": "infografias/02_Principios_Testing.png",
+    "Desarrollo de Software y SDLC": "infografias/03_Desarrollo_Agile.png",
+    "Modelo V y Modelo W": "infografias/03_Desarrollo_Agile.png",
+    "Agile, Scrum y Kanban": "infografias/03_Desarrollo_Agile.png",
+    "Historias de Usuario": "infografias/04_Historias_Usuario.png",
+    "Criterios de Aceptación": "infografias/04_Historias_Usuario.png",
+    "Buenas Historias: 3C e INVEST": "infografias/04_Historias_Usuario.png",
+    "ISO 25010": "infografias/05_ISO_25010.png",
+    "Testing Agile": "infografias/06_Testing_Agile.png",
+    "Proceso de Pruebas": "infografias/07_Proceso_Pruebas.png",
+    "Análisis, Diseño y Dependencias": "infografias/09_Casos_Prueba.png",
+    "Plan de Pruebas": "infografias/08_Plan_Pruebas_SPACE_DIRT.png",
+    "Casos de Prueba": "infografias/09_Casos_Prueba.png",
+    "Implementación, Ejecución y Reporte": "infografias/07_Proceso_Pruebas.png",
+    "Testing vs Debugging": "infografias/10_Resumen_General.png",
+    "Errores y Defectos": "infografias/10_Resumen_General.png",
+    "Escenarios para Examen": "infografias/10_Resumen_General.png",
+    "Mapa del Flujo QA": "infografias/10_Resumen_General.png",
+    "Diccionario QA": "infografias/10_Resumen_General.png",
+    "Resumen General": "infografias/10_Resumen_General.png"
+  };
   const desiredOrder = [
     "Validación, Verificación y Testing",
     "Calidad de Software",
@@ -132,6 +158,7 @@ function renderStudyModulesFromData() {
     module.compact ||= module.concepts?.length > 7 || module.grid?.length > 6;
     module.group ||= groupByTitle[module.title] || "General";
     module.id ||= normalizeText(module.title).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    module.infographic ||= infographicByTitle[module.title];
   });
 
   contentColumn.querySelectorAll("[data-topic]").forEach((topic) => topic.remove());
@@ -159,6 +186,16 @@ function renderStudyModulesFromData() {
     <div class="module-relations">
       <strong>Antes de seguir, se relaciona con:</strong>
       <div>${module.related.map((item) => `<button type="button" data-related-topic="${item}">${item}</button>`).join("")}</div>
+    </div>
+  ` : "";
+  const renderInfographicReview = (module) => module.infographic ? `
+    <div class="module-infographic">
+      <strong>Repaso visual</strong>
+      <p>Al cerrar este tema, mirá la infografía relacionada para fijar la idea principal.</p>
+      <button type="button" data-open-infographic="${module.infographic}">
+        <i class="bi bi-image" aria-hidden="true"></i>
+        Ver infografía de repaso
+      </button>
     </div>
   ` : "";
   const renderQuiz = (module, index) => module.quiz ? `
@@ -203,6 +240,7 @@ function renderStudyModulesFromData() {
       ${module.professor?.length ? `${renderHeading("bi-person-video3", "Lo que suele tomar el profesor")}${renderList(module.professor)}` : ""}
       ${renderOptionalBlock("bi-exclamation-triangle", "Error típico", module.mistake)}
       ${renderRelations(module)}
+      ${renderInfographicReview(module)}
       ${renderQuiz(module, index)}
       <div class="summary-box"><strong><i class="bi bi-brain" aria-hidden="true"></i> Resumen final:</strong> ${module.summary}</div>
     </section>
@@ -244,12 +282,16 @@ const resourceViewer = document.querySelector("#resourceViewer");
 const resourceViewerLabel = document.querySelector("#resourceViewerLabel");
 const resourceViewerBody = document.querySelector("#resourceViewerBody");
 const resourceOpenNew = document.querySelector("#resourceOpenNew");
+const resourcePrev = document.querySelector("#resourcePrev");
+const resourceNext = document.querySelector("#resourceNext");
 const resourceModal = new bootstrap.Modal(resourceViewer);
 
 let activeIndex = 0;
 let matchedIndexes = topics.map((_, index) => index);
 let searchMatches = [];
 let currentSearchMatch = -1;
+let activeResourceGroup = [];
+let activeResourceIndex = -1;
 
 function applyTheme(theme) {
   root.setAttribute("data-theme", theme);
@@ -549,8 +591,8 @@ function renderResources() {
   }
 
   resourcesPanel.innerHTML = groups.map((group) => {
-    const items = group.items.length ? group.items.map((item) => `
-      <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
+    const items = group.items.length ? group.items.map((item, itemIndex) => `
+      <button class="resource-item" type="button" data-resource-group="${group.id}" data-resource-index="${itemIndex}" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
         ${item.title}
       </button>
     `).join("") : '<p class="resource-empty mb-0">TodavÃ­a no hay archivos en esta carpeta.</p>';
@@ -588,14 +630,36 @@ function renderResources() {
 
   resourcesPanel.querySelectorAll(".resource-item").forEach((item) => {
     item.addEventListener("click", () => {
-      openResource(item.dataset.resourceTitle, item.dataset.resourcePath, item.dataset.resourceType);
+      const group = groups.find((resourceGroup) => resourceGroup.id === item.dataset.resourceGroup);
+      openResource(item.dataset.resourceTitle, item.dataset.resourcePath, item.dataset.resourceType, {
+        groupItems: group?.items || [],
+        index: Number(item.dataset.resourceIndex)
+      });
     });
   });
 }
 
-function openResource(title, path, type) {
+function updateResourceNavigation() {
+  const canNavigate = activeResourceGroup.length > 1 && activeResourceIndex !== -1;
+  resourcePrev.hidden = !canNavigate;
+  resourceNext.hidden = !canNavigate;
+  resourcePrev.disabled = !canNavigate;
+  resourceNext.disabled = !canNavigate;
+}
+
+function openResource(title, path, type, context = {}) {
+  if (context.groupItems) {
+    activeResourceGroup = context.groupItems;
+    activeResourceIndex = context.index ?? activeResourceGroup.findIndex((item) => encodePath(item.path) === path || item.path === path);
+  } else {
+    const group = window.MDP_RESOURCES?.groups?.find((resourceGroup) => resourceGroup.items.some((item) => item.path === path || encodePath(item.path) === path));
+    activeResourceGroup = group?.items || [];
+    activeResourceIndex = activeResourceGroup.findIndex((item) => item.path === path || encodePath(item.path) === path);
+  }
+
   resourceViewerLabel.textContent = title;
   resourceOpenNew.href = path;
+  updateResourceNavigation();
 
   if (type === "pdf") {
     resourceViewerBody.innerHTML = `<iframe class="resource-frame" src="${path}" title="${title}"></iframe>`;
@@ -622,6 +686,16 @@ function openResource(title, path, type) {
     </div>
   `;
   resourceModal.show();
+}
+
+function moveResource(direction) {
+  if (!activeResourceGroup.length) return;
+  activeResourceIndex = (activeResourceIndex + direction + activeResourceGroup.length) % activeResourceGroup.length;
+  const item = activeResourceGroup[activeResourceIndex];
+  openResource(item.title, encodePath(item.path), item.type, {
+    groupItems: activeResourceGroup,
+    index: activeResourceIndex
+  });
 }
 
 function getCompletedTopicIds() {
@@ -700,6 +774,21 @@ function bindStudyInteractions() {
     });
   });
 
+  document.querySelectorAll("[data-open-infographic]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const path = button.dataset.openInfographic;
+      const group = window.MDP_RESOURCES?.groups?.find((resourceGroup) => resourceGroup.id === "infografias");
+      const index = group?.items.findIndex((item) => item.path === path) ?? -1;
+      const item = group?.items[index];
+      if (!item) return;
+
+      openResource(item.title, encodePath(item.path), item.type, {
+        groupItems: group.items,
+        index
+      });
+    });
+  });
+
   updateLearningDashboard();
 }
 
@@ -714,6 +803,8 @@ searchInput.addEventListener("keydown", (event) => {
 });
 searchPrev.addEventListener("click", () => moveSearchMatch(-1));
 searchNext.addEventListener("click", () => moveSearchMatch(1));
+resourcePrev.addEventListener("click", () => moveResource(-1));
+resourceNext.addEventListener("click", () => moveResource(1));
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
 mobileTop.addEventListener("click", scrollTopSmooth);
 mobileSearch.addEventListener("click", () => {

@@ -657,6 +657,7 @@ li {
 }
 
 .module-relations,
+.module-infographic,
 .module-quiz {
   display: grid;
   gap: .65rem;
@@ -673,6 +674,30 @@ li {
   display: flex;
   flex-wrap: wrap;
   gap: .55rem;
+}
+
+.module-infographic p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.module-infographic button {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  min-height: 42px;
+  padding: .55rem .8rem;
+  border: 1px solid var(--accent);
+  border-radius: .8rem;
+  color: #06221f;
+  background: var(--accent);
+  font-weight: 900;
+}
+
+.module-infographic button:hover,
+.module-infographic button:focus-visible {
+  background: var(--accent-dark);
 }
 
 .module-relations button:hover,
@@ -892,6 +917,10 @@ li {
   display: inline-flex;
   align-items: center;
   gap: .5rem;
+}
+
+.modal-actions button[hidden] {
+  display: none;
 }
 
 .resource-viewer .modal-body {
