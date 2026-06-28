@@ -91,8 +91,16 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar documentos"></button>
     </div>
-    <div class="offcanvas-body resources-panel" id="resourcesPanel">
-      <p class="index-help mb-0">Cargando documentos...</p>
+    <div class="offcanvas-body resources-panel">
+      <section class="resource-group exam-entry">
+        <button class="resource-toggle exam-launch" type="button" id="openExam">
+          <span class="resource-toggle__label"><i class="bi bi-clipboard-check" aria-hidden="true"></i>Simulacro de Examen</span>
+          <span class="resource-toggle__meta"><span class="resource-toggle__count">20</span><i class="bi bi-play-fill" aria-hidden="true"></i></span>
+        </button>
+      </section>
+      <div class="resources-panel__list" id="resourcesPanel">
+        <p class="index-help mb-0">Cargando documentos...</p>
+      </div>
     </div>
   </div>
 
@@ -110,6 +118,32 @@
           </div>
         </div>
         <div class="modal-body" id="resourceViewerBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade exam-modal" id="examModal" tabindex="-1" aria-labelledby="examModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <p class="offcanvas-kicker mb-1">Parcial 1</p>
+            <h2 class="modal-title h5 mb-0" id="examModalLabel">Simulacro de Examen</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar simulacro"></button>
+        </div>
+        <div class="modal-body exam-body">
+          <div class="exam-shell">
+            <aside class="exam-summary">
+              <h3>Formato del profesor</h3>
+              <p>Mezcla de verdadero/falso, multiple choice y desarrollo. En desarrollo importa justificar con conceptos tecnicos.</p>
+              <div class="exam-score" id="examScore" hidden></div>
+              <button class="btn btn-accent w-100" type="button" id="gradeExam">Corregir simulacro</button>
+              <button class="btn btn-outline-accent w-100" type="button" id="resetExam">Reiniciar</button>
+            </aside>
+            <form class="exam-form" id="examForm"></form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -420,5 +454,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="resources.js"></script>
   <script src="script.js"></script>
+  <script src="simulacro.js"></script>
 </body>
 </html>

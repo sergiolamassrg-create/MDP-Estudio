@@ -52,9 +52,11 @@ La app incluye 13 modulos:
 
 La app tiene un panel separado de **Documentos** con:
 
+- Simulacro de Examen
 - PDF-Profe
 - Resumenes compartidos
 - Infografias
+- Videos
 
 Los recursos se cargan desde `resources.js`. Para sumar nuevas infografias, PDFs, videos o resumenes:
 
