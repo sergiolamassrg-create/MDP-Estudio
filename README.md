@@ -59,7 +59,14 @@ La app tiene un panel separado de **Documentos** con:
 Los recursos se cargan desde `resources.js`. Para sumar nuevas infografias, PDFs, videos o resumenes:
 
 1. Copiar el archivo en la carpeta correspondiente.
-2. Agregar una entrada en `resources.js` con `title`, `path` y `type`.
+2. Ejecutar `Actualizar-recursos.bat`.
+3. Revisar y subir los cambios.
+
+El archivo `Actualizar-recursos.bat` escanea estas carpetas y regenera `resources.js` automaticamente:
+
+- `documentos/PDF-Profe/`
+- `documentos/Resumenes/`
+- `infografias/`
 
 Tipos soportados por el visor interno:
 
