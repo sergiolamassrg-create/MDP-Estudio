@@ -22,25 +22,46 @@ window.MDP_STUDY_MODULES = [
     summary: "validación mira necesidad; verificación mira cumplimiento; testing ejecuta para obtener información."
   },
   {
-    title: "Calidad, QM, QA, QC y Testing",
-    keywords: "Calidad QM QA QC Testing aseguramiento control gestión calidad",
-    what: "Calidad es el grado en que un producto, servicio o sistema cumple requisitos. QM, QA, QC y Testing son conceptos relacionados, pero no significan lo mismo.",
-    why: "Porque no alcanza con encontrar errores al final. La calidad se dirige, se previene, se controla y se diagnostica. Testing aporta información, pero no agrega calidad por sí solo.",
+    title: "Calidad de Software",
+    keywords: "Calidad software requisitos modelos excelencia producto servicio sistema",
+    what: "Calidad es el grado en que un producto, servicio o sistema cumple requisitos y satisface lo que se espera de él.",
+    why: "Porque no alcanza con que una funcionalidad exista. Debe cumplir requisitos, resolver la necesidad y comportarse de manera aceptable para el contexto.",
+    concepts: [
+      "La calidad permite comparar si un producto tiene menor, igual o mayor calidad respecto de una expectativa.",
+      "Un producto tiene calidad cuando sus características cumplen requisitos.",
+      "Testing diagnostica el estado del producto, pero no agrega calidad por sí solo.",
+      "La calidad se construye con decisiones, procesos, prevención, controles y correcciones.",
+      "Modelos de calidad/excelencia: son voluntarios, adaptables, autoevaluables y no certificables."
+    ],
+    everyday: "Un café puede ser barato, rápido y rico. Su calidad depende de si cumple lo que esperabas para ese contexto.",
+    software: "Un login puede existir, pero si es lento, inseguro o confuso, la calidad del producto sigue siendo baja.",
+    professor: [
+      "Explicar por qué testing no construye calidad solo.",
+      "Relacionar calidad con cumplimiento de requisitos.",
+      "Conectar calidad con ISO 25010."
+    ],
+    mistake: "Pensar que calidad significa solamente que una funcionalidad pase una prueba.",
+    summary: "calidad es cumplir requisitos y expectativas; testing solo informa el estado."
+  },
+  {
+    title: "QA, QC, QM y Testing",
+    keywords: "QM QA QC Testing aseguramiento control gestión calidad",
+    what: "QM, QA, QC y Testing son formas distintas de trabajar sobre la calidad.",
+    why: "Porque la calidad necesita gestión, prevención, control e información. Si mezclás estos conceptos, se vuelve difícil explicar qué hace QA.",
     concepts: [
       "QM: Quality Management. Gestiona, dirige y coordina políticas, objetivos y actividades de calidad.",
       "QA: Quality Assurance. Previene problemas mejorando procesos y prácticas.",
       "QC: Quality Control. Controla el producto para detectar si cumple requisitos.",
-      "Testing: ejecuta el sistema para encontrar información sobre calidad, defectos y riesgos.",
-      "Modelos de calidad/excelencia: son voluntarios, adaptables, autoevaluables y no certificables."
+      "Testing: ejecuta el sistema para encontrar información sobre calidad, defectos y riesgos."
     ],
-    everyday: "En una panadería, QM define estándares, QA mejora el proceso de amasado, QC revisa el pan terminado y testing sería probar una muestra para detectar problemas.",
-    software: "En una app bancaria, QA revisa criterios antes de desarrollar; QC revisa el producto; testing ejecuta login, pagos y comprobantes para informar defectos.",
+    everyday: "En una panadería, QM define estándares, QA mejora el proceso, QC revisa el pan terminado y testing prueba una muestra.",
+    software: "En una app bancaria, QA revisa criterios antes de desarrollar; QC revisa el producto; testing ejecuta login, pagos y comprobantes.",
     professor: [
       "Diferenciar QA, QC, QM y Testing.",
-      "Explicar por qué testing no construye calidad solo.",
-      "Relacionar calidad con cumplimiento de requisitos."
+      "Explicar por qué QA no es solo ejecutar pruebas.",
+      "Relacionar testing con diagnóstico de calidad."
     ],
-    mistake: "Creer que QA es solamente probar pantallas. QA tiene foco preventivo y participa antes de que el producto esté terminado.",
+    mistake: "Creer que QA es solamente probar pantallas. QA tiene foco preventivo.",
     summary: "QM gestiona; QA previene; QC controla; Testing informa."
   },
   {
@@ -470,6 +491,90 @@ window.MDP_STUDY_MODULES = [
     ],
     mistake: "Responder con frases genéricas como 'probar que funcione' sin escenario específico.",
     summary: "para el parcial, concepto claro + ejemplo concreto + justificación corta."
+  },
+  {
+    title: "Errores y Defectos",
+    keywords: "Error Defecto Bug Fault Failure Incident falla defecto incidente",
+    what: "Este módulo separa palabras que suelen mezclarse: error, defecto, bug, fault, failure e incident.",
+    why: "Porque el profesor puede usarlas juntas y conviene responder con precisión. No todo problema visible tiene el mismo nombre técnico.",
+    concepts: [
+      "Error: equivocación humana que puede introducir un defecto.",
+      "Defecto o bug: problema en un artefacto o software que puede causar una falla.",
+      "Fault: término cercano a defecto; condición incorrecta en el sistema.",
+      "Failure: falla observable cuando el sistema no se comporta como se esperaba.",
+      "Incident: evento reportado que requiere análisis; puede o no terminar siendo defecto.",
+      "Un error humano puede generar un defecto, y ese defecto puede producir una falla al ejecutar."
+    ],
+    everyday: "Si alguien copia mal una receta, ese es el error. La torta queda mal preparada: defecto. Al comerla y notar que está cruda, aparece la falla observable.",
+    software: "Un desarrollador escribe mal una regla de descuento. El bug queda en código. Cuando el usuario paga y recibe un monto incorrecto, ocurre la falla.",
+    professor: [
+      "Diferenciar error, defecto y falla.",
+      "Explicar qué reporta QA.",
+      "Relacionar bug con resultado real vs esperado."
+    ],
+    mistake: "Usar bug, error y failure como si siempre fueran exactamente lo mismo.",
+    summary: "error es causa humana; defecto/bug queda en el producto; failure es la falla observable."
+  },
+  {
+    title: "Mapa del Flujo QA",
+    keywords: "Mapa flujo QA necesidad historia criterios análisis escenarios casos implementación ejecución reporte debugging regression release",
+    what: "Es el mapa grande que une todos los temas de la cursada en una secuencia de trabajo.",
+    why: "Porque ayuda a dejar de ver conceptos sueltos. Cada tema aparece en un flujo natural: necesidad, historia, criterios, pruebas, reporte, corrección y nueva versión.",
+    concepts: [
+      "Necesidad del usuario.",
+      "Historia de usuario.",
+      "Criterios de aceptación.",
+      "Análisis de pruebas.",
+      "Escenarios de prueba.",
+      "Casos de prueba.",
+      "Implementación de pruebas.",
+      "Ejecución.",
+      "Reporte.",
+      "Corrección mediante debugging.",
+      "Nueva versión o release.",
+      "Regression testing para verificar que lo anterior no se rompió."
+    ],
+    everyday: "Primero entendés qué problema hay, después definís cómo resolverlo, luego comprobás que funcione y finalmente revisás que no se haya roto nada anterior.",
+    software: "Necesidad: pagar factura. Historia: como cliente quiero pagar desde la app. Criterios: comprobante y validaciones. QA deriva escenarios, casos, ejecuta, reporta bugs y re-prueba la nueva versión.",
+    professor: [
+      "Relacionar historia, criterios, escenarios y casos.",
+      "Explicar por qué QA pregunta antes de probar.",
+      "Ubicar debugging y regression en el flujo."
+    ],
+    mistake: "Pensar que QA aparece recién después de desarrollar.",
+    summary: "la cursada se entiende mejor como flujo: necesidad → historia → criterios → pruebas → reporte → corrección → regresión."
+  },
+  {
+    title: "Diccionario QA",
+    keywords: "Glosario diccionario Bug Defecto Error Failure Risk Incident Regression Smoke Sanity Build Release Sprint Backlog Product Artifact",
+    what: "Glosario rápido de términos que aparecen en clases, PDFs, ejercicios y conversaciones de equipo.",
+    why: "Porque una persona nueva puede trabarse por vocabulario antes de entender el concepto real.",
+    concepts: [
+      "Bug: defecto o comportamiento incorrecto detectado en el software.",
+      "Defecto: problema en un artefacto, requisito, diseño, código o configuración.",
+      "Error: equivocación humana que puede introducir un defecto.",
+      "Failure: falla observable del sistema en ejecución.",
+      "Risk: posibilidad de que ocurra algo con impacto negativo.",
+      "Incident: evento reportado que debe analizarse.",
+      "Regression testing: pruebas para verificar que cambios nuevos no rompieron funcionalidades existentes.",
+      "Smoke testing: prueba rápida para ver si una build es lo bastante estable para seguir probando.",
+      "Sanity testing: prueba breve y enfocada para verificar un cambio puntual.",
+      "Build: versión compilada o paquete preparado para probar.",
+      "Release: versión liberada o entregada a usuarios/producción.",
+      "Sprint: iteración de trabajo en Scrum.",
+      "Backlog: lista priorizada de trabajo pendiente.",
+      "Product: producto o solución que entrega valor al usuario.",
+      "Artifact: elemento producido en el proceso, como plan, caso, evidencia o reporte."
+    ],
+    everyday: "Es como tener una chuleta de términos para no frenar la lectura cada vez que aparece una palabra nueva.",
+    software: "Si desarrollo entrega una build, QA puede hacer smoke testing. Si corrigen un bug, QA hace sanity sobre el cambio y regression sobre lo que podría haberse roto.",
+    professor: [
+      "Definir bug, error, defecto y failure.",
+      "Diferenciar smoke, sanity y regression.",
+      "Entender build, release, sprint y backlog."
+    ],
+    mistake: "Traducir todo literalmente sin entender su uso dentro del proceso de pruebas.",
+    summary: "este diccionario ayuda a leer la cursada sin frenar por vocabulario."
   },
   {
     title: "Resumen General",

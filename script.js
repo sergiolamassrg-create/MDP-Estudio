@@ -1,4 +1,4 @@
-const root = document.documentElement;
+﻿const root = document.documentElement;
 const themeToggle = document.querySelector("#themeToggle");
 const themeToggleText = document.querySelector("#themeToggleText");
 const mobileTheme = document.querySelector("#mobileTheme");
@@ -16,26 +16,166 @@ function renderStudyModulesFromData() {
   const modules = window.MDP_STUDY_MODULES || [];
   if (!modules.length || !contentColumn) return;
 
+  const relatedByTitle = {
+    "Validación, Verificación y Testing": ["Modelo V", "Testing Agile"],
+    "Calidad de Software": ["QA, QC, QM", "ISO 25010"],
+    "QA, QC, QM y Testing": ["Calidad", "Testing Agile"],
+    "Testing vs Debugging": ["Errores y Defectos", "Implementación"],
+    "Riesgos en Testing": ["Plan de Pruebas", "Proceso de Pruebas"],
+    "Principios del Testing": ["Riesgos", "Proceso de Pruebas"],
+    "Desarrollo de Software y SDLC": ["Modelo V", "Proceso de Pruebas"],
+    "Modelo V y Modelo W": ["Validación", "Testing Agile"],
+    "Agile, Scrum y Kanban": ["Historias", "Testing Agile"],
+    "Historias de Usuario": ["Criterios", "Análisis"],
+    "Criterios de Aceptación": ["Casos de Prueba", "Historias"],
+    "Buenas Historias: 3C e INVEST": ["Historias", "Criterios"],
+    "ISO 25010": ["Calidad", "Plan de Pruebas"],
+    "Testing Agile": ["Agile", "Historias"],
+    "Proceso de Pruebas": ["Plan de Pruebas", "Casos de Prueba"],
+    "Análisis, Diseño y Dependencias": ["Casos de Prueba", "Proceso"],
+    "Plan de Pruebas": ["Riesgos", "Proceso"],
+    "Casos de Prueba": ["Criterios", "Escenarios"],
+    "Implementación, Ejecución y Reporte": ["Debugging", "Regression"],
+    "Escenarios para Examen": ["Casos de Prueba", "Resumen"],
+    "Resumen General": ["Mapa del Flujo QA", "Diccionario QA"]
+  };
+  const quizByTitle = {
+    "Validación, Verificación y Testing": { question: "Validación responde principalmente a...", options: ["La necesidad del usuario", "El código fuente", "El servidor"], answer: 0 },
+    "Calidad de Software": { question: "Calidad se relaciona principalmente con...", options: ["Cumplir requisitos y expectativas", "Solo tener pantallas", "Solo publicar rápido"], answer: 0 },
+    "QA, QC, QM y Testing": { question: "QA se enfoca sobre todo en...", options: ["Prevenir problemas", "Corregir código", "Publicar versiones"], answer: 0 },
+    "Testing vs Debugging": { question: "Debugging consiste en...", options: ["Encontrar y corregir la causa", "Diseñar el logo", "Definir el backlog"], answer: 0 },
+    "Riesgos en Testing": { question: "Un riesgo se analiza por...", options: ["Color y tamaño", "Probabilidad e impacto", "Sprint y release"], answer: 1 },
+    "Principios del Testing": { question: "Las pruebas exhaustivas son...", options: ["Imposibles", "Obligatorias siempre", "Solo visuales"], answer: 0 },
+    "Desarrollo de Software y SDLC": { question: "SDLC cubre...", options: ["Solo programación", "Todo el ciclo de vida", "Solo testing"], answer: 1 },
+    "Modelo V y Modelo W": { question: "El Modelo W refuerza...", options: ["Testing temprano", "Testing solo al final", "No documentar"], answer: 0 },
+    "Agile, Scrum y Kanban": { question: "Agile es...", options: ["Una filosofía", "Un bug", "Un caso de prueba"], answer: 0 },
+    "Historias de Usuario": { question: "Una historia debe expresar...", options: ["Perfil, necesidad y valor", "Solo pasos", "Solo ambiente"], answer: 0 },
+    "Criterios de Aceptación": { question: "Given/When/Then describe...", options: ["Comportamiento esperado", "Equipo de desarrollo", "Diseño visual"], answer: 0 },
+    "Buenas Historias: 3C e INVEST": { question: "La T de INVEST significa...", options: ["Testeable", "Temporal", "Técnica"], answer: 0 },
+    "ISO 25010": { question: "ISO 25010 ayuda a evaluar...", options: ["Calidad del producto", "Solo sprint", "Solo bugs"], answer: 0 },
+    "Testing Agile": { question: "Testing Agile busca...", options: ["Participar temprano", "Esperar el final", "Evitar criterios"], answer: 0 },
+    "Proceso de Pruebas": { question: "El proceso termina comunicando...", options: ["Reporte y resultados", "Solo ideas", "Solo diseño"], answer: 0 },
+    "Análisis, Diseño y Dependencias": { question: "Un escenario dice...", options: ["Qué probar", "Cómo compilar", "Dónde cobrar"], answer: 0 },
+    "Plan de Pruebas": { question: "SPACE DIRT sirve para recordar...", options: ["Contenido del plan", "Principios Agile", "Tipos de bug"], answer: 0 },
+    "Casos de Prueba": { question: "Un caso de prueba dice...", options: ["Cómo probar", "Qué filosofía usar", "Qué release vender"], answer: 0 },
+    "Implementación, Ejecución y Reporte": { question: "La ejecución produce...", options: ["Resultados y evidencias", "Solo historias", "Solo backlog"], answer: 0 },
+    "Escenarios para Examen": { question: "Si piden escenarios, conviene escribir...", options: ["Situaciones claras", "Pasos completos siempre", "Código"], answer: 0 },
+    "Resumen General": { question: "Para rendir bien hay que...", options: ["Explicar y aplicar", "Memorizar sin entender", "Evitar ejemplos"], answer: 0 },
+    "Diccionario QA": { question: "Regression testing verifica que...", options: ["Lo anterior no se rompió", "El diseño sea bonito", "No existan usuarios"], answer: 0 },
+    "Mapa del Flujo QA": { question: "Después de criterios suelen venir...", options: ["Análisis y escenarios", "Release directo", "Debugging sin probar"], answer: 0 },
+    "Errores y Defectos": { question: "Failure es...", options: ["Falla observable", "Plan de sprint", "Ambiente"], answer: 0 }
+  };
+  const desiredOrder = [
+    "Validación, Verificación y Testing",
+    "Calidad de Software",
+    "QA, QC, QM y Testing",
+    "Principios del Testing",
+    "Riesgos en Testing",
+    "Desarrollo de Software y SDLC",
+    "Modelo V y Modelo W",
+    "Agile, Scrum y Kanban",
+    "Historias de Usuario",
+    "Criterios de Aceptación",
+    "Buenas Historias: 3C e INVEST",
+    "ISO 25010",
+    "Testing Agile",
+    "Proceso de Pruebas",
+    "Análisis, Diseño y Dependencias",
+    "Plan de Pruebas",
+    "Casos de Prueba",
+    "Implementación, Ejecución y Reporte",
+    "Testing vs Debugging",
+    "Errores y Defectos",
+    "Escenarios para Examen",
+    "Mapa del Flujo QA",
+    "Diccionario QA",
+    "Resumen General"
+  ];
+
+  modules.sort((first, second) => {
+    const firstIndex = desiredOrder.indexOf(first.title);
+    const secondIndex = desiredOrder.indexOf(second.title);
+    return (firstIndex === -1 ? 999 : firstIndex) - (secondIndex === -1 ? 999 : secondIndex);
+  });
+
+  modules.forEach((module) => {
+    module.related ||= relatedByTitle[module.title] || [];
+    module.quiz ||= quizByTitle[module.title];
+    module.time ||= module.concepts?.length > 7 ? "5 min" : "4 min";
+    module.level ||= module.concepts?.length > 7 ? "★★★☆☆" : "★★☆☆☆";
+    module.compact ||= module.concepts?.length > 7 || module.grid?.length > 6;
+  });
+
   contentColumn.querySelectorAll("[data-topic]").forEach((topic) => topic.remove());
   const navigation = contentColumn.querySelector(".topic-navigation");
   const renderList = (items) => items?.length ? `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>` : "";
-  const renderOptionalBlock = (title, body) => body ? `<h3>${title}</h3><p>${body}</p>` : "";
+  const renderHeading = (icon, title) => `<h3><i class="bi ${icon}" aria-hidden="true"></i>${title}</h3>`;
+  const renderOptionalBlock = (icon, title, body) => body ? `${renderHeading(icon, title)}<p>${body}</p>` : "";
+  const renderConcepts = (module) => {
+    if (!module.concepts?.length) return "";
+    if (!module.compact) return renderList(module.concepts);
+
+    return `
+      <div class="concept-accordion">
+        ${module.concepts.map((item, conceptIndex) => `
+          <details>
+            <summary>Concepto ${conceptIndex + 1}</summary>
+            <p>${item}</p>
+          </details>
+        `).join("")}
+      </div>
+    `;
+  };
+  const renderRelations = (module) => module.related?.length ? `
+    <div class="module-relations">
+      <strong>Antes de seguir, se relaciona con:</strong>
+      <div>${module.related.map((item) => `<button type="button" data-related-topic="${item}">${item}</button>`).join("")}</div>
+    </div>
+  ` : "";
+  const renderQuiz = (module, index) => module.quiz ? `
+    <div class="module-quiz" data-quiz data-answer="${module.quiz.answer}">
+      <strong>Mini autoevaluación</strong>
+      <p>${module.quiz.question}</p>
+      <div class="module-quiz__options">
+        ${module.quiz.options.map((option, optionIndex) => `
+          <label>
+            <input type="radio" name="quiz-${index}" value="${optionIndex}">
+            <span>${option}</span>
+          </label>
+        `).join("")}
+      </div>
+      <p class="module-quiz__feedback" aria-live="polite"></p>
+    </div>
+  ` : "";
+  const renderMeta = (module, index) => `
+    <div class="module-meta">
+      <button type="button" data-complete-topic="${index}">
+        <i class="bi bi-check2-circle" aria-hidden="true"></i>
+        <span>Tema completado</span>
+      </button>
+      <span><i class="bi bi-clock" aria-hidden="true"></i>${module.time || "4 min"}</span>
+      <span><i class="bi bi-bar-chart" aria-hidden="true"></i>${module.level || "★★☆☆☆"}</span>
+    </div>
+  `;
   const modulesMarkup = modules.map((module, index) => `
     <section class="study-card" id="tema-${index + 1}" data-topic data-title="${module.keywords}">
       <div class="study-card__header">
         <span class="topic-number">Tema ${index + 1}</span>
         <h2>${module.title}</h2>
       </div>
-      ${renderOptionalBlock("¿Qué es?", module.what || module.intro)}
-      ${renderOptionalBlock("¿Por qué existe?", module.why)}
-      <h3>Conceptos clave</h3>
+      ${renderMeta(module, index)}
+      ${renderOptionalBlock("bi-book", "Qué es", module.what || module.intro)}
+      ${renderOptionalBlock("bi-bullseye", "Para qué sirve", module.why)}
+      ${renderHeading("bi-key", "Conceptos clave")}
       ${module.grid ? `<div class="keyword-grid">${module.grid.map((item) => `<span>${item}</span>`).join("")}</div>` : ""}
-      ${renderList(module.concepts)}
-      ${renderOptionalBlock("Ejemplo cotidiano", module.everyday)}
-      ${renderOptionalBlock("Ejemplo de software", module.software || module.example)}
-      ${module.professor?.length ? `<h3>Lo que suele tomar el profesor</h3>${renderList(module.professor)}` : ""}
-      ${renderOptionalBlock("Error típico", module.mistake)}
-      <div class="summary-box"><strong>Resumen final:</strong> ${module.summary}</div>
+      ${renderConcepts(module)}
+      ${renderOptionalBlock("bi-lightbulb", "Ejemplo cotidiano", module.everyday)}
+      ${renderOptionalBlock("bi-window", "Ejemplo de software", module.software || module.example)}
+      ${module.professor?.length ? `${renderHeading("bi-person-video3", "Lo que suele tomar el profesor")}${renderList(module.professor)}` : ""}
+      ${renderOptionalBlock("bi-exclamation-triangle", "Error típico", module.mistake)}
+      ${renderRelations(module)}
+      ${renderQuiz(module, index)}
+      <div class="summary-box"><strong><i class="bi bi-brain" aria-hidden="true"></i> Resumen final:</strong> ${module.summary}</div>
     </section>
   `).join("");
 
@@ -131,7 +271,7 @@ function updateNavigationState() {
   prevTopic.disabled = activeIndex === 0;
   nextTopic.disabled = activeIndex === topics.length - 1;
   prevTopic.textContent = activeIndex === 0 ? "Primer tema" : "Tema anterior";
-  nextTopic.textContent = activeIndex === topics.length - 1 ? "Último tema" : "Tema siguiente";
+  nextTopic.textContent = activeIndex === topics.length - 1 ? "Ãšltimo tema" : "Tema siguiente";
 }
 
 function filterTopics() {
@@ -149,7 +289,7 @@ function filterTopics() {
   if (!query) {
     searchStatus.textContent = "";
   } else {
-    searchStatus.textContent = `${matchedIndexes.length} módulo${matchedIndexes.length === 1 ? "" : "s"} encontrado${matchedIndexes.length === 1 ? "" : "s"}.`;
+    searchStatus.textContent = `${matchedIndexes.length} mÃ³dulo${matchedIndexes.length === 1 ? "" : "s"} encontrado${matchedIndexes.length === 1 ? "" : "s"}.`;
   }
 
   if (matchedIndexes.length && query) {
@@ -345,7 +485,7 @@ function encodePath(path) {
 function renderResources() {
   const groups = window.MDP_RESOURCES?.groups || [];
   if (!groups.length) {
-    resourcesPanel.innerHTML = '<p class="index-help mb-0">No hay documentos cargados todavía.</p>';
+    resourcesPanel.innerHTML = '<p class="index-help mb-0">No hay documentos cargados todavÃ­a.</p>';
     return;
   }
 
@@ -354,7 +494,7 @@ function renderResources() {
       <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
         ${item.title}
       </button>
-    `).join("") : '<p class="resource-empty mb-0">Todavía no hay archivos en esta carpeta.</p>';
+    `).join("") : '<p class="resource-empty mb-0">TodavÃ­a no hay archivos en esta carpeta.</p>';
 
     return `
       <section class="resource-group">
@@ -425,6 +565,41 @@ function openResource(title, path, type) {
   resourceModal.show();
 }
 
+function bindStudyInteractions() {
+  const completed = JSON.parse(localStorage.getItem("mdp-completed-topics") || "[]");
+
+  document.querySelectorAll("[data-complete-topic]").forEach((button) => {
+    const index = Number(button.dataset.completeTopic);
+    button.classList.toggle("is-complete", completed.includes(index));
+    button.addEventListener("click", () => {
+      const saved = JSON.parse(localStorage.getItem("mdp-completed-topics") || "[]");
+      const next = saved.includes(index) ? saved.filter((item) => item !== index) : [...saved, index];
+      localStorage.setItem("mdp-completed-topics", JSON.stringify(next));
+      button.classList.toggle("is-complete", next.includes(index));
+    });
+  });
+
+  document.querySelectorAll("[data-related-topic]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const label = normalizeText(button.dataset.relatedTopic);
+      const index = topics.findIndex((topic) => normalizeText(topic.querySelector("h2").textContent).includes(label));
+      if (index !== -1) activateTopic(index);
+    });
+  });
+
+  document.querySelectorAll("[data-quiz]").forEach((quiz) => {
+    const feedback = quiz.querySelector(".module-quiz__feedback");
+    quiz.querySelectorAll("input").forEach((input) => {
+      input.addEventListener("change", () => {
+        const isCorrect = input.value === quiz.dataset.answer;
+        quiz.classList.toggle("is-correct", isCorrect);
+        quiz.classList.toggle("is-review", !isCorrect);
+        feedback.textContent = isCorrect ? "Correcto. Buen punto para fijar." : "Revisar este concepto antes de avanzar.";
+      });
+    });
+  });
+}
+
 themeToggle?.addEventListener("click", toggleTheme);
 mobileTheme.addEventListener("click", toggleTheme);
 searchInput.addEventListener("input", filterTopics);
@@ -459,3 +634,5 @@ applyTheme(root.getAttribute("data-theme") || "dark");
 activateTopic(0, false);
 filterTopics();
 renderResources();
+bindStudyInteractions();
+

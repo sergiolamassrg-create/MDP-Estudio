@@ -8,11 +8,11 @@ const commonReview = {
     infographic: "infografias/01_VV_Testing_Calidad.png"
   },
   riesgos: {
-    topicIndex: 3,
+    topicIndex: 4,
     infographic: "infografias/02_Principios_Testing.png"
   },
   principios: {
-    topicIndex: 4,
+    topicIndex: 3,
     infographic: "infografias/02_Principios_Testing.png"
   },
   desarrollo: {
