@@ -15,24 +15,36 @@ const commonReview = {
     topicIndex: 4,
     infographic: "infografias/04_Historias_Usuario.png"
   },
-  iso: {
+  criterios: {
     topicIndex: 5,
+    infographic: "infografias/04_Historias_Usuario.png"
+  },
+  buenasHistorias: {
+    topicIndex: 6,
+    infographic: "infografias/04_Historias_Usuario.png"
+  },
+  iso: {
+    topicIndex: 7,
     infographic: "infografias/05_ISO_25010.png"
   },
   agile: {
-    topicIndex: 6,
+    topicIndex: 8,
     infographic: "infografias/06_Testing_Agile.png"
   },
   proceso: {
-    topicIndex: 7,
+    topicIndex: 9,
     infographic: "infografias/07_Proceso_Pruebas.png"
   },
+  analisisDiseno: {
+    topicIndex: 10,
+    infographic: "infografias/09_Casos_Prueba.png"
+  },
   plan: {
-    topicIndex: 8,
+    topicIndex: 11,
     infographic: "infografias/08_Plan_Pruebas_SPACE_DIRT.png"
   },
   casos: {
-    topicIndex: 9,
+    topicIndex: 12,
     infographic: "infografias/09_Casos_Prueba.png"
   }
 };
@@ -42,15 +54,15 @@ const examQuestions = [
     id: 1,
     type: "choice",
     topic: "Fundamentos",
-    question: "Cual es la diferencia correcta entre validacion y verificacion?",
+    question: "¿Cuál es la diferencia correcta entre validación y verificación?",
     options: [
-      "Validacion revisa codigo; verificacion revisa usuario.",
-      "Validacion responde si construimos el sistema correcto; verificacion si lo construimos correctamente.",
-      "Validacion y verificacion son exactamente lo mismo.",
-      "Verificacion solo aplica en produccion."
+      "Validación revisa código; verificación revisa usuario.",
+      "Validación responde si construimos el sistema correcto; verificación si lo construimos correctamente.",
+      "Validación y verificación son exactamente lo mismo.",
+      "Verificación solo aplica en producción."
     ],
     answer: 1,
-    correctText: "Validacion mira si el sistema resuelve la necesidad real; verificacion mira si lo construido cumple la especificacion.",
+    correctText: "Validación mira si el sistema resuelve la necesidad real; verificación mira si lo construido cumple la especificación.",
     remember: "En el parcial conviene decirlo corto: validar es valor para el usuario; verificar es cumplimiento contra lo pedido.",
     ...commonReview.fundamentos
   },
@@ -58,7 +70,7 @@ const examQuestions = [
     id: 2,
     type: "truefalse",
     topic: "Calidad",
-    question: "El testing agrega calidad por si solo al producto.",
+    question: "El testing agrega calidad por sí solo al producto.",
     answer: false,
     correctText: "Falso.",
     remember: "Testing informa y encuentra evidencia. La calidad se construye con proceso, buenas decisiones y correcciones.",
@@ -68,15 +80,15 @@ const examQuestions = [
     id: 3,
     type: "choice",
     topic: "Testing",
-    question: "Cual de estos es un objetivo del testing?",
+    question: "¿Cuál de estos es un objetivo del testing?",
     options: [
       "Demostrar que el software no tiene errores.",
       "Evitar hablar con negocio.",
-      "Generar informacion para tomar decisiones.",
-      "Reemplazar la validacion con usuarios."
+      "Generar información para tomar decisiones.",
+      "Reemplazar la validación con usuarios."
     ],
     answer: 2,
-    correctText: "Generar informacion para tomar decisiones.",
+    correctText: "Generar información para tomar decisiones.",
     remember: "Testing no promete ausencia total de errores: aporta confianza, evidencia y visibilidad sobre riesgos.",
     ...commonReview.fundamentos
   },
@@ -184,7 +196,7 @@ const examQuestions = [
     answer: 0,
     correctText: "Son condiciones que definen cuando una historia esta terminada y aceptable.",
     remember: "Son la base para escenarios y casos porque reducen ambiguedad.",
-    ...commonReview.historias
+    ...commonReview.criterios
   },
   {
     id: 12,
@@ -195,7 +207,7 @@ const examQuestions = [
     minKeywords: 4,
     correctText: "Ejemplo: Given un usuario registrado con credenciales validas, When ingresa email y contrasena correctos, Then accede a la Home.",
     remember: "Given es contexto, When es accion, Then es resultado esperado observable.",
-    ...commonReview.historias
+    ...commonReview.criterios
   },
   {
     id: 13,
@@ -211,7 +223,7 @@ const examQuestions = [
     answer: 1,
     correctText: "Card, Conversation, Confirmation.",
     remember: "Card resume la necesidad, Conversation aclara, Confirmation valida con criterios.",
-    ...commonReview.historias
+    ...commonReview.buenasHistorias
   },
   {
     id: 14,
@@ -222,7 +234,7 @@ const examQuestions = [
     minKeywords: 4,
     correctText: "INVEST: independiente, negociable, valiosa, estimable, pequena y testeable.",
     remember: "El punto fuerte para examen: una historia buena debe poder entenderse, estimarse y probarse.",
-    ...commonReview.historias
+    ...commonReview.buenasHistorias
   },
   {
     id: 15,
@@ -381,7 +393,7 @@ function renderFeedback(question, state) {
       <div class="exam-links" aria-label="Material de repaso">
         <button class="exam-link-button" type="button" data-study-topic="${question.topicIndex}">
           <i class="bi bi-journal-text" aria-hidden="true"></i>
-          Leer modulo
+          Leer módulo
         </button>
         <a class="exam-link-button" href="${question.infographic}" target="_blank" rel="noopener">
           <i class="bi bi-image" aria-hidden="true"></i>

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Mini app de estudio responsive para apuntes de Metodologia de Pruebas.">
-  <title>MDP-Estudio | Metodologia de Pruebas</title>
+  <meta name="description" content="Mini app de estudio responsive para apuntes de Metodología de Pruebas.">
+  <title>MDP-Estudio | Metodología de Pruebas</title>
   <script>
     (function () {
       var savedTheme = localStorage.getItem("mdp-theme");
@@ -28,7 +28,7 @@
         <div class="d-flex gap-2">
           <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu">
             <i class="bi bi-list-ul" aria-hidden="true"></i>
-            <span>Indice</span>
+            <span>Índice</span>
           </button>
           <button class="btn btn-outline-accent d-none d-sm-inline-flex" type="button" id="desktopSearch">
             <i class="bi bi-search" aria-hidden="true"></i>
@@ -50,9 +50,9 @@
       <div class="row align-items-end g-4">
         <div class="col-lg-9">
           <p class="eyebrow mb-2">Parcial 1</p>
-          <h1>Metodologia de Pruebas</h1>
-          <p class="hero__subtitle">Guia de estudio escalonada</p>
-          <p class="hero__text">Lee un modulo por vez, analiza lo importante y avanza con anterior/siguiente.</p>
+          <h1>Metodología de Pruebas</h1>
+          <p class="hero__subtitle">Guía de estudio escalonada</p>
+          <p class="hero__text">Leé un módulo por vez, analizá lo importante y avanzá con anterior/siguiente.</p>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
     <div class="search-panel" role="search">
       <div class="search-panel__header">
         <label for="searchInput" class="form-label mb-0">Buscar tema</label>
-        <button class="search-panel__close" type="button" id="closeSearch" aria-label="Cerrar busqueda">Cerrar</button>
+        <button class="search-panel__close" type="button" id="closeSearch" aria-label="Cerrar búsqueda">Cerrar</button>
       </div>
       <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="ISO, plan, agile..." autocomplete="off">
       <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite"></p>
@@ -73,12 +73,12 @@
     <div class="offcanvas-header">
       <div>
         <p class="offcanvas-kicker mb-1">Ruta de estudio</p>
-        <h2 class="offcanvas-title h5 mb-0" id="indexMenuLabel">Indice de temas</h2>
+        <h2 class="offcanvas-title h5 mb-0" id="indexMenuLabel">Índice de temas</h2>
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Cerrar indice"></button>
     </div>
     <div class="offcanvas-body">
-      <p class="index-help">Elegi un modulo para estudiar. Cada tema se abre de forma individual.</p>
+      <p class="index-help">Elegí un módulo para estudiar. Cada tema se abre de forma individual.</p>
       <nav class="topic-index" aria-label="Indice de estudio" data-index-list></nav>
     </div>
   </div>
@@ -169,13 +169,13 @@
       <div class="module-status" aria-live="polite">
         <div>
           <span class="module-status__label">Modulo actual</span>
-          <strong id="moduleStatusTitle">Validacion, Verificacion y Testing</strong>
+          <strong id="moduleStatusTitle">Validación, Verificación y Testing</strong>
         </div>
         <span class="module-status__count" id="moduleStatusCount">1 / 16</span>
       </div>
 
       <div class="alert no-results d-none" id="noResults" role="status">
-        No se encontraron modulos con esa busqueda.
+        No se encontraron módulos con esa búsqueda.
       </div>
 
       <section class="study-card" id="tema-1" data-topic data-title="Validacion Verificacion Testing Calidad QA QC QM Riesgos">
@@ -447,8 +447,8 @@
   </main>
 
   <nav class="mobile-actions" aria-label="Acciones rapidas">
-    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu" aria-label="Abrir indice"><i class="bi bi-list-ul" aria-hidden="true"></i></button>
-    <button type="button" id="mobileSearch" aria-label="Buscar modulo"><i class="bi bi-search" aria-hidden="true"></i></button>
+    <button type="button" data-bs-toggle="offcanvas" data-bs-target="#indexMenu" aria-controls="indexMenu" aria-label="Abrir índice"><i class="bi bi-list-ul" aria-hidden="true"></i></button>
+    <button type="button" id="mobileSearch" aria-label="Buscar módulo"><i class="bi bi-search" aria-hidden="true"></i></button>
     <button type="button" data-bs-toggle="offcanvas" data-bs-target="#resourcesMenu" aria-controls="resourcesMenu" aria-label="Abrir documentos"><i class="bi bi-folder2-open" aria-hidden="true"></i></button>
     <button type="button" id="mobileTop" aria-label="Volver arriba"><i class="bi bi-arrow-up" aria-hidden="true"></i></button>
     <button type="button" id="mobileTheme" aria-label="Cambiar tema"><i class="bi bi-circle-half" aria-hidden="true"></i><span id="mobileThemeText" class="visually-hidden">Modo</span></button>
@@ -456,12 +456,13 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p class="mb-0">Suerte en el parcial. Vamos con todo: el final no es opcion, promocionar si.</p>
+      <p class="mb-0">Suerte en el parcial. Vamos con todo: el final no es opción, promocionar sí.</p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="resources.js"></script>
+  <script src="study-modules.js"></script>
   <script src="script.js"></script>
   <script src="simulacro.js"></script>
 </body>

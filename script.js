@@ -8,6 +8,34 @@ const searchStatus = document.querySelector("#searchStatus");
 const searchPanel = document.querySelector("#searchPanel");
 const closeSearch = document.querySelector("#closeSearch");
 const noResults = document.querySelector("#noResults");
+const contentColumn = document.querySelector(".content-column");
+
+function renderStudyModulesFromData() {
+  const modules = window.MDP_STUDY_MODULES || [];
+  if (!modules.length || !contentColumn) return;
+
+  contentColumn.querySelectorAll("[data-topic]").forEach((topic) => topic.remove());
+  const navigation = contentColumn.querySelector(".topic-navigation");
+  const modulesMarkup = modules.map((module, index) => `
+    <section class="study-card" id="tema-${index + 1}" data-topic data-title="${module.keywords}">
+      <div class="study-card__header">
+        <span class="topic-number">Tema ${index + 1}</span>
+        <h2>${module.title}</h2>
+      </div>
+      <p>${module.intro}</p>
+      <h3>Conceptos clave</h3>
+      ${module.grid ? `<div class="keyword-grid">${module.grid.map((item) => `<span>${item}</span>`).join("")}</div>` : ""}
+      <ul>${module.concepts.map((item) => `<li>${item}</li>`).join("")}</ul>
+      <h3>Ejemplo</h3>
+      <p>${module.example}</p>
+      <div class="summary-box"><strong>Resumen final:</strong> ${module.summary}</div>
+    </section>
+  `).join("");
+
+  navigation.insertAdjacentHTML("beforebegin", modulesMarkup);
+}
+
+renderStudyModulesFromData();
 const topics = Array.from(document.querySelectorAll("[data-topic]"));
 const progressBar = document.querySelector("#readingProgress");
 const mobileTop = document.querySelector("#mobileTop");
@@ -94,7 +122,7 @@ function updateNavigationState() {
   prevTopic.disabled = activeIndex === 0;
   nextTopic.disabled = activeIndex === topics.length - 1;
   prevTopic.textContent = activeIndex === 0 ? "Primer tema" : "Tema anterior";
-  nextTopic.textContent = activeIndex === topics.length - 1 ? "Ultimo tema" : "Tema siguiente";
+  nextTopic.textContent = activeIndex === topics.length - 1 ? "Último tema" : "Tema siguiente";
 }
 
 function filterTopics() {
@@ -112,7 +140,7 @@ function filterTopics() {
   if (!query) {
     searchStatus.textContent = "";
   } else {
-    searchStatus.textContent = `${matchedIndexes.length} modulo${matchedIndexes.length === 1 ? "" : "s"} encontrado${matchedIndexes.length === 1 ? "" : "s"}.`;
+    searchStatus.textContent = `${matchedIndexes.length} módulo${matchedIndexes.length === 1 ? "" : "s"} encontrado${matchedIndexes.length === 1 ? "" : "s"}.`;
   }
 
   if (matchedIndexes.length && query) {
@@ -157,7 +185,7 @@ function encodePath(path) {
 function renderResources() {
   const groups = window.MDP_RESOURCES?.groups || [];
   if (!groups.length) {
-    resourcesPanel.innerHTML = '<p class="index-help mb-0">No hay documentos cargados todavia.</p>';
+    resourcesPanel.innerHTML = '<p class="index-help mb-0">No hay documentos cargados todavía.</p>';
     return;
   }
 
@@ -166,7 +194,7 @@ function renderResources() {
       <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
         ${item.title}
       </button>
-    `).join("") : '<p class="resource-empty mb-0">Todavia no hay archivos en esta carpeta.</p>';
+    `).join("") : '<p class="resource-empty mb-0">Todavía no hay archivos en esta carpeta.</p>';
 
     return `
       <section class="resource-group">
