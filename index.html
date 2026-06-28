@@ -135,10 +135,19 @@
         <div class="modal-body exam-body">
           <div class="exam-shell">
             <aside class="exam-summary">
-              <h3>Formato del profesor</h3>
-              <p>Mezcla de verdadero/falso, multiple choice y desarrollo. En desarrollo importa justificar con conceptos tecnicos.</p>
-              <div class="exam-score" id="examScore" hidden></div>
-              <button class="btn btn-accent w-100" type="button" id="gradeExam">Corregir simulacro</button>
+              <h3>Simulacro</h3>
+              <p>Una pregunta por pantalla. Responde, revisa el resultado y avanza con el repaso recomendado.</p>
+              <div class="exam-progress">
+                <div>
+                  <span>Pregunta</span>
+                  <strong id="examCounter">1 / 20</strong>
+                </div>
+                <div>
+                  <span>Nota</span>
+                  <strong id="examPercent">0%</strong>
+                </div>
+              </div>
+              <div class="exam-score" id="examScore"></div>
               <button class="btn btn-outline-accent w-100" type="button" id="resetExam">Reiniciar</button>
             </aside>
             <form class="exam-form" id="examForm"></form>
