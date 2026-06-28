@@ -3,48 +3,56 @@ const commonReview = {
     topicIndex: 0,
     infographic: "infografias/01_VV_Testing_Calidad.png"
   },
-  principios: {
+  calidad: {
     topicIndex: 1,
+    infographic: "infografias/01_VV_Testing_Calidad.png"
+  },
+  riesgos: {
+    topicIndex: 3,
+    infographic: "infografias/02_Principios_Testing.png"
+  },
+  principios: {
+    topicIndex: 4,
     infographic: "infografias/02_Principios_Testing.png"
   },
   desarrollo: {
-    topicIndex: 2,
+    topicIndex: 5,
     infographic: "infografias/03_Desarrollo_Agile.png"
   },
   historias: {
-    topicIndex: 4,
+    topicIndex: 8,
     infographic: "infografias/04_Historias_Usuario.png"
   },
   criterios: {
-    topicIndex: 5,
+    topicIndex: 9,
     infographic: "infografias/04_Historias_Usuario.png"
   },
   buenasHistorias: {
-    topicIndex: 6,
+    topicIndex: 10,
     infographic: "infografias/04_Historias_Usuario.png"
   },
   iso: {
-    topicIndex: 7,
+    topicIndex: 11,
     infographic: "infografias/05_ISO_25010.png"
   },
   agile: {
-    topicIndex: 8,
+    topicIndex: 12,
     infographic: "infografias/06_Testing_Agile.png"
   },
   proceso: {
-    topicIndex: 9,
+    topicIndex: 13,
     infographic: "infografias/07_Proceso_Pruebas.png"
   },
   analisisDiseno: {
-    topicIndex: 10,
+    topicIndex: 14,
     infographic: "infografias/09_Casos_Prueba.png"
   },
   plan: {
-    topicIndex: 11,
+    topicIndex: 15,
     infographic: "infografias/08_Plan_Pruebas_SPACE_DIRT.png"
   },
   casos: {
-    topicIndex: 12,
+    topicIndex: 16,
     infographic: "infografias/09_Casos_Prueba.png"
   }
 };
@@ -64,7 +72,7 @@ const examQuestions = [
     answer: 1,
     correctText: "Validación mira si el sistema resuelve la necesidad real; verificación mira si lo construido cumple la especificación.",
     remember: "En el parcial conviene decirlo corto: validar es valor para el usuario; verificar es cumplimiento contra lo pedido.",
-    ...commonReview.fundamentos
+    ...commonReview.calidad
   },
   {
     id: 2,
@@ -101,7 +109,7 @@ const examQuestions = [
     minKeywords: 3,
     correctText: "Ejemplos validos: las pruebas muestran defectos; pruebas exhaustivas son imposibles; testing temprano; agrupamiento de defectos; paradoja del pesticida; depende del contexto; ausencia de errores no implica utilidad.",
     remember: "No alcanza con nombrarlos: agrega una frase de explicacion para mostrar que los entendes.",
-    ...commonReview.principios
+    ...commonReview.riesgos
   },
   {
     id: 5,

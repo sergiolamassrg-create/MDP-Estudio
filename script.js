@@ -18,18 +18,23 @@ function renderStudyModulesFromData() {
 
   contentColumn.querySelectorAll("[data-topic]").forEach((topic) => topic.remove());
   const navigation = contentColumn.querySelector(".topic-navigation");
+  const renderList = (items) => items?.length ? `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>` : "";
+  const renderOptionalBlock = (title, body) => body ? `<h3>${title}</h3><p>${body}</p>` : "";
   const modulesMarkup = modules.map((module, index) => `
     <section class="study-card" id="tema-${index + 1}" data-topic data-title="${module.keywords}">
       <div class="study-card__header">
         <span class="topic-number">Tema ${index + 1}</span>
         <h2>${module.title}</h2>
       </div>
-      <p>${module.intro}</p>
+      ${renderOptionalBlock("¿Qué es?", module.what || module.intro)}
+      ${renderOptionalBlock("¿Por qué existe?", module.why)}
       <h3>Conceptos clave</h3>
       ${module.grid ? `<div class="keyword-grid">${module.grid.map((item) => `<span>${item}</span>`).join("")}</div>` : ""}
-      <ul>${module.concepts.map((item) => `<li>${item}</li>`).join("")}</ul>
-      <h3>Ejemplo</h3>
-      <p>${module.example}</p>
+      ${renderList(module.concepts)}
+      ${renderOptionalBlock("Ejemplo cotidiano", module.everyday)}
+      ${renderOptionalBlock("Ejemplo de software", module.software || module.example)}
+      ${module.professor?.length ? `<h3>Lo que suele tomar el profesor</h3>${renderList(module.professor)}` : ""}
+      ${renderOptionalBlock("Error típico", module.mistake)}
       <div class="summary-box"><strong>Resumen final:</strong> ${module.summary}</div>
     </section>
   `).join("");
