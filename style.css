@@ -920,3 +920,31 @@ mark {
     grid-template-columns: 1fr;
   }
 }
+
+#resourcesMenu {
+  height: 100vh;
+  max-height: 100vh;
+}
+
+#resourcesMenu .offcanvas-body {
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.resources-panel {
+  max-height: calc(100vh - 86px);
+  overflow-y: auto;
+}
+
+.resources-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.resources-panel::-webkit-scrollbar-thumb {
+  background: #2dd4bf;
+  border-radius: 10px;
+}
+
+.resources-panel::-webkit-scrollbar-track {
+  background: #0f172a;
+}

@@ -80,23 +80,53 @@ window.MDP_RESOURCES = {
                        "icon":  "bi-image",
                        "items":  [
                                      {
-                                         "title":  "Testing 1.png",
-                                         "path":  "infografias/Testing 1.png",
+                                         "title":  "01_VV_Testing_Calidad.png",
+                                         "path":  "infografias/01_VV_Testing_Calidad.png",
                                          "type":  "image"
                                      },
                                      {
-                                         "title":  "Testing 2.png",
-                                         "path":  "infografias/Testing 2.png",
+                                         "title":  "02_Principios_Testing.png",
+                                         "path":  "infografias/02_Principios_Testing.png",
                                          "type":  "image"
                                      },
                                      {
-                                         "title":  "Testing 3.png",
-                                         "path":  "infografias/Testing 3.png",
+                                         "title":  "03_Desarrollo_Agile.png",
+                                         "path":  "infografias/03_Desarrollo_Agile.png",
                                          "type":  "image"
                                      },
                                      {
-                                         "title":  "Testing 4.png",
-                                         "path":  "infografias/Testing 4.png",
+                                         "title":  "04_Historias_Usuario.png",
+                                         "path":  "infografias/04_Historias_Usuario.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "05_ISO_25010.png",
+                                         "path":  "infografias/05_ISO_25010.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "06_Testing_Agile.png",
+                                         "path":  "infografias/06_Testing_Agile.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "07_Proceso_Pruebas.png",
+                                         "path":  "infografias/07_Proceso_Pruebas.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "08_Plan_Pruebas_SPACE_DIRT.png",
+                                         "path":  "infografias/08_Plan_Pruebas_SPACE_DIRT.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "09_Casos_Prueba.png",
+                                         "path":  "infografias/09_Casos_Prueba.png",
+                                         "type":  "image"
+                                     },
+                                     {
+                                         "title":  "10_Resumen_General.png",
+                                         "path":  "infografias/10_Resumen_General.png",
                                          "type":  "image"
                                      }
                                  ]
