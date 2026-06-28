@@ -161,9 +161,7 @@ function renderResources() {
     return;
   }
 
-  resourcesPanel.innerHTML = groups.map((group, groupIndex) => {
-    const isOpen = groupIndex === 0 ? "is-open" : "";
-    const hidden = groupIndex === 0 ? "" : "hidden";
+  resourcesPanel.innerHTML = groups.map((group) => {
     const items = group.items.map((item) => `
       <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
         ${item.title}
@@ -171,12 +169,12 @@ function renderResources() {
     `).join("");
 
     return `
-      <section class="resource-group ${isOpen}">
-        <button class="resource-toggle" type="button" aria-expanded="${groupIndex === 0}" data-resource-toggle>
+      <section class="resource-group">
+        <button class="resource-toggle" type="button" aria-expanded="false" data-resource-toggle>
           <span class="resource-toggle__label"><i class="bi ${group.icon}" aria-hidden="true"></i>${group.title}</span>
-          <span class="resource-toggle__count">${group.items.length}</span>
+          <span class="resource-toggle__meta"><span class="resource-toggle__count">${group.items.length}</span><i class="bi bi-chevron-down" aria-hidden="true"></i></span>
         </button>
-        <div class="resource-list" ${hidden}>${items}</div>
+        <div class="resource-list" hidden>${items}</div>
       </section>
     `;
   }).join("");
@@ -185,9 +183,19 @@ function renderResources() {
     toggle.addEventListener("click", () => {
       const group = toggle.closest(".resource-group");
       const list = group.querySelector(".resource-list");
-      const isOpen = group.classList.toggle("is-open");
-      list.hidden = !isOpen;
-      toggle.setAttribute("aria-expanded", String(isOpen));
+      const shouldOpen = !group.classList.contains("is-open");
+
+      resourcesPanel.querySelectorAll(".resource-group").forEach((otherGroup) => {
+        otherGroup.classList.remove("is-open");
+        otherGroup.querySelector(".resource-list").hidden = true;
+        otherGroup.querySelector("[data-resource-toggle]").setAttribute("aria-expanded", "false");
+      });
+
+      if (shouldOpen) {
+        group.classList.add("is-open");
+        list.hidden = false;
+        toggle.setAttribute("aria-expanded", "true");
+      }
     });
   });
 

@@ -550,10 +550,25 @@ li {
   gap: .55rem;
 }
 
+.resource-toggle__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  color: var(--muted);
+}
+
 .resource-toggle__count {
   color: var(--muted);
   font-size: .85rem;
   font-weight: 800;
+}
+
+.resource-toggle__meta .bi-chevron-down {
+  transition: transform .18s ease;
+}
+
+.resource-group.is-open .resource-toggle__meta .bi-chevron-down {
+  transform: rotate(180deg);
 }
 
 .resource-group.is-open .resource-toggle {
