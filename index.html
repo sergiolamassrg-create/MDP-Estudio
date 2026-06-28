@@ -64,7 +64,13 @@
         <label for="searchInput" class="form-label mb-0">Buscar tema</label>
         <button class="search-panel__close" type="button" id="closeSearch" aria-label="Cerrar búsqueda">Cerrar</button>
       </div>
-      <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="ISO, plan, agile..." autocomplete="off">
+      <div class="search-panel__row">
+        <input class="form-control form-control-lg" id="searchInput" type="search" placeholder="ISO, plan, agile..." autocomplete="off">
+        <div class="search-panel__controls" aria-label="Navegar coincidencias">
+          <button type="button" id="searchPrev" aria-label="Coincidencia anterior"><i class="bi bi-chevron-up" aria-hidden="true"></i></button>
+          <button type="button" id="searchNext" aria-label="Coincidencia siguiente"><i class="bi bi-chevron-down" aria-hidden="true"></i></button>
+        </div>
+      </div>
       <p class="search-panel__status mb-0" id="searchStatus" aria-live="polite"></p>
     </div>
   </div>

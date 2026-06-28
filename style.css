@@ -186,6 +186,37 @@ h1 {
   color: var(--accent);
 }
 
+.search-panel__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .55rem;
+  align-items: stretch;
+}
+
+.search-panel__controls {
+  display: flex;
+  gap: .4rem;
+}
+
+.search-panel__controls button {
+  width: 46px;
+  min-height: 46px;
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  color: var(--text);
+  background: var(--card-soft);
+}
+
+.search-panel__controls button:hover,
+.search-panel__controls button:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.search-panel__controls button:disabled {
+  opacity: .45;
+}
+
 .form-label {
   color: var(--text);
   font-weight: 700;
@@ -1051,6 +1082,12 @@ mark {
   border-radius: .25rem;
   color: #061512;
   background: var(--accent);
+}
+
+mark.is-current-match {
+  outline: 2px solid var(--warn);
+  outline-offset: 2px;
+  background: var(--warn);
 }
 
 @media (min-width: 576px) {

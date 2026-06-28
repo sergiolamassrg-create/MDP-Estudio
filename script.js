@@ -6,6 +6,8 @@ const mobileThemeText = document.querySelector("#mobileThemeText");
 const searchInput = document.querySelector("#searchInput");
 const searchStatus = document.querySelector("#searchStatus");
 const searchPanel = document.querySelector("#searchPanel");
+const searchPrev = document.querySelector("#searchPrev");
+const searchNext = document.querySelector("#searchNext");
 const closeSearch = document.querySelector("#closeSearch");
 const noResults = document.querySelector("#noResults");
 const contentColumn = document.querySelector(".content-column");
@@ -55,6 +57,8 @@ const resourceModal = new bootstrap.Modal(resourceViewer);
 
 let activeIndex = 0;
 let matchedIndexes = topics.map((_, index) => index);
+let searchMatches = [];
+let currentSearchMatch = -1;
 
 function applyTheme(theme) {
   root.setAttribute("data-theme", theme);
@@ -159,6 +163,157 @@ function closeSearchPanel() {
   searchPanel.hidden = true;
   searchInput.value = "";
   filterTopics();
+}
+
+function clearSearchHighlights() {
+  topics.forEach((topic) => {
+    topic.querySelectorAll("mark[data-search-match]").forEach((mark) => {
+      mark.replaceWith(document.createTextNode(mark.textContent));
+    });
+    topic.normalize();
+  });
+}
+
+function getSearchRanges(text, query) {
+  const normalizedQuery = normalizeText(query);
+  const normalized = [];
+  const originalIndexes = [];
+
+  Array.from(text).forEach((character, index) => {
+    Array.from(normalizeText(character)).forEach((part) => {
+      normalized.push(part);
+      originalIndexes.push(index);
+    });
+  });
+
+  const haystack = normalized.join("");
+  const ranges = [];
+  let position = haystack.indexOf(normalizedQuery);
+
+  while (position !== -1) {
+    const start = originalIndexes[position];
+    const end = originalIndexes[position + normalizedQuery.length - 1] + 1;
+    ranges.push([start, end]);
+    position = haystack.indexOf(normalizedQuery, position + normalizedQuery.length);
+  }
+
+  return ranges;
+}
+
+function highlightTextNode(node, query) {
+  const text = node.nodeValue;
+  const ranges = getSearchRanges(text, query);
+  if (!ranges.length) return;
+
+  const fragment = document.createDocumentFragment();
+  let cursor = 0;
+
+  ranges.forEach(([start, end]) => {
+    if (start > cursor) {
+      fragment.appendChild(document.createTextNode(text.slice(cursor, start)));
+    }
+
+    const mark = document.createElement("mark");
+    mark.dataset.searchMatch = "";
+    mark.textContent = text.slice(start, end);
+    fragment.appendChild(mark);
+    cursor = end;
+  });
+
+  if (cursor < text.length) {
+    fragment.appendChild(document.createTextNode(text.slice(cursor)));
+  }
+
+  node.replaceWith(fragment);
+}
+
+function highlightSearch(query) {
+  topics.forEach((topic) => {
+    const walker = document.createTreeWalker(topic, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (!normalizeText(node.nodeValue).includes(normalizeText(query))) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const textNodes = [];
+
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode);
+    }
+
+    textNodes.forEach((node) => highlightTextNode(node, query));
+  });
+
+  searchMatches = Array.from(document.querySelectorAll("mark[data-search-match]"));
+  matchedIndexes = [...new Set(searchMatches.map((match) => topics.indexOf(match.closest("[data-topic]"))))];
+}
+
+function updateSearchStatus() {
+  const query = searchInput.value.trim();
+
+  if (!query) {
+    searchStatus.textContent = "";
+  } else if (!searchMatches.length) {
+    searchStatus.textContent = "Sin resultados.";
+  } else {
+    searchStatus.textContent = `${currentSearchMatch + 1} / ${searchMatches.length} coincidencia${searchMatches.length === 1 ? "" : "s"}.`;
+  }
+
+  searchPrev.disabled = searchMatches.length < 2;
+  searchNext.disabled = searchMatches.length < 2;
+}
+
+function focusSearchMatch(index) {
+  if (!searchMatches.length) {
+    currentSearchMatch = -1;
+    updateSearchStatus();
+    return;
+  }
+
+  currentSearchMatch = (index + searchMatches.length) % searchMatches.length;
+  searchMatches.forEach((match, matchIndex) => {
+    match.classList.toggle("is-current-match", matchIndex === currentSearchMatch);
+  });
+
+  const topic = searchMatches[currentSearchMatch].closest("[data-topic]");
+  const topicIndex = topics.indexOf(topic);
+  if (topicIndex !== -1 && topicIndex !== activeIndex) {
+    activateTopic(topicIndex, false);
+  }
+
+  searchMatches[currentSearchMatch].scrollIntoView({ behavior: "smooth", block: "center" });
+  updateSearchStatus();
+}
+
+function moveSearchMatch(direction) {
+  focusSearchMatch(currentSearchMatch + direction);
+}
+
+function filterTopics() {
+  const query = searchInput.value.trim();
+
+  clearSearchHighlights();
+  searchMatches = [];
+  currentSearchMatch = -1;
+
+  if (!query) {
+    matchedIndexes = topics.map((_, index) => index);
+    noResults.classList.add("d-none");
+    renderIndexes();
+    updateSearchStatus();
+    return;
+  }
+
+  highlightSearch(query);
+  noResults.classList.toggle("d-none", searchMatches.length !== 0);
+  renderIndexes();
+
+  if (searchMatches.length) {
+    focusSearchMatch(0);
+  } else {
+    updateSearchStatus();
+  }
 }
 
 function updateReadingProgress() {
@@ -268,6 +423,14 @@ function openResource(title, path, type) {
 themeToggle?.addEventListener("click", toggleTheme);
 mobileTheme.addEventListener("click", toggleTheme);
 searchInput.addEventListener("input", filterTopics);
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    moveSearchMatch(event.shiftKey ? -1 : 1);
+  }
+});
+searchPrev.addEventListener("click", () => moveSearchMatch(-1));
+searchNext.addEventListener("click", () => moveSearchMatch(1));
 window.addEventListener("scroll", updateReadingProgress, { passive: true });
 mobileTop.addEventListener("click", scrollTopSmooth);
 mobileSearch.addEventListener("click", () => {
