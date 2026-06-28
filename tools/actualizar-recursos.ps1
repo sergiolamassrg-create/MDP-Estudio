@@ -19,6 +19,12 @@ $groupsConfig = @(
     title = "Infografias"
     icon = "bi-image"
     folder = "infografias"
+  },
+  @{
+    id = "videos"
+    title = "Videos"
+    icon = "bi-play-btn"
+    folder = "videos"
   }
 )
 
@@ -37,6 +43,7 @@ function Get-ResourceType {
     ".mp4" { "video"; break }
     ".webm" { "video"; break }
     ".mov" { "video"; break }
+    ".mkv" { "video"; break }
     default { "file" }
   }
 }

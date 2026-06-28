@@ -162,11 +162,11 @@ function renderResources() {
   }
 
   resourcesPanel.innerHTML = groups.map((group) => {
-    const items = group.items.map((item) => `
+    const items = group.items.length ? group.items.map((item) => `
       <button class="resource-item" type="button" data-resource-path="${encodePath(item.path)}" data-resource-title="${item.title}" data-resource-type="${item.type}">
         ${item.title}
       </button>
-    `).join("");
+    `).join("") : '<p class="resource-empty mb-0">Todavia no hay archivos en esta carpeta.</p>';
 
     return `
       <section class="resource-group">

@@ -67,6 +67,7 @@ El archivo `Actualizar-recursos.bat` escanea estas carpetas y regenera `resource
 - `documentos/PDF-Profe/`
 - `documentos/Resumenes/`
 - `infografias/`
+- `videos/`
 
 Tipos soportados por el visor interno:
 

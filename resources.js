@@ -130,6 +130,23 @@ window.MDP_RESOURCES = {
                                          "type":  "image"
                                      }
                                  ]
+                   },
+                   {
+                       "id":  "videos",
+                       "title":  "Videos",
+                       "icon":  "bi-play-btn",
+                       "items":  [
+                                     {
+                                         "title":  "Parte 1.mp4",
+                                         "path":  "videos/Parte 1.mp4",
+                                         "type":  "video"
+                                     },
+                                     {
+                                         "title":  "Parte 2.mp4",
+                                         "path":  "videos/Parte 2.mp4",
+                                         "type":  "video"
+                                     }
+                                 ]
                    }
                ]
 };
