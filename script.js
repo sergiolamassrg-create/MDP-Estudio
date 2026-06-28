@@ -91,6 +91,32 @@ function renderStudyModulesFromData() {
     "Diccionario QA",
     "Resumen General"
   ];
+  const groupByTitle = {
+    "Validación, Verificación y Testing": "Fundamentos",
+    "Calidad de Software": "Fundamentos",
+    "QA, QC, QM y Testing": "Fundamentos",
+    "Principios del Testing": "Fundamentos",
+    "Riesgos en Testing": "Fundamentos",
+    "Desarrollo de Software y SDLC": "Ciclo de desarrollo",
+    "Modelo V y Modelo W": "Ciclo de desarrollo",
+    "Agile, Scrum y Kanban": "Agile",
+    "Historias de Usuario": "Agile",
+    "Criterios de Aceptación": "Agile",
+    "Buenas Historias: 3C e INVEST": "Agile",
+    "ISO 25010": "Calidad",
+    "Testing Agile": "Calidad",
+    "Proceso de Pruebas": "Proceso QA",
+    "Análisis, Diseño y Dependencias": "Proceso QA",
+    "Plan de Pruebas": "Proceso QA",
+    "Casos de Prueba": "Proceso QA",
+    "Implementación, Ejecución y Reporte": "Proceso QA",
+    "Testing vs Debugging": "Defectos",
+    "Errores y Defectos": "Defectos",
+    "Escenarios para Examen": "Preparación",
+    "Mapa del Flujo QA": "Preparación",
+    "Diccionario QA": "Preparación",
+    "Resumen General": "Preparación"
+  };
 
   modules.sort((first, second) => {
     const firstIndex = desiredOrder.indexOf(first.title);
@@ -104,9 +130,12 @@ function renderStudyModulesFromData() {
     module.time ||= module.concepts?.length > 7 ? "5 min" : "4 min";
     module.level ||= module.concepts?.length > 7 ? "★★★☆☆" : "★★☆☆☆";
     module.compact ||= module.concepts?.length > 7 || module.grid?.length > 6;
+    module.group ||= groupByTitle[module.title] || "General";
+    module.id ||= normalizeText(module.title).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   });
 
   contentColumn.querySelectorAll("[data-topic]").forEach((topic) => topic.remove());
+  contentColumn.querySelector(".learning-dashboard")?.remove();
   const navigation = contentColumn.querySelector(".topic-navigation");
   const renderList = (items) => items?.length ? `<ul>${items.map((item) => `<li>${item}</li>`).join("")}</ul>` : "";
   const renderHeading = (icon, title) => `<h3><i class="bi ${icon}" aria-hidden="true"></i>${title}</h3>`;
@@ -149,7 +178,7 @@ function renderStudyModulesFromData() {
   ` : "";
   const renderMeta = (module, index) => `
     <div class="module-meta">
-      <button type="button" data-complete-topic="${index}">
+      <button type="button" data-complete-topic="${module.id}">
         <i class="bi bi-check2-circle" aria-hidden="true"></i>
         <span>Tema completado</span>
       </button>
@@ -158,7 +187,7 @@ function renderStudyModulesFromData() {
     </div>
   `;
   const modulesMarkup = modules.map((module, index) => `
-    <section class="study-card" id="tema-${index + 1}" data-topic data-title="${module.keywords}">
+    <section class="study-card" id="tema-${index + 1}" data-topic data-module-id="${module.id}" data-group="${module.group}" data-title="${module.keywords}">
       <div class="study-card__header">
         <span class="topic-number">Tema ${index + 1}</span>
         <h2>${module.title}</h2>
@@ -178,8 +207,25 @@ function renderStudyModulesFromData() {
       <div class="summary-box"><strong><i class="bi bi-brain" aria-hidden="true"></i> Resumen final:</strong> ${module.summary}</div>
     </section>
   `).join("");
+  const dashboardMarkup = `
+    <section class="learning-dashboard" aria-label="Panel de progreso">
+      <div>
+        <span>Progreso</span>
+        <strong id="learningProgressValue">0%</strong>
+      </div>
+      <div>
+        <span>Temas completados</span>
+        <strong id="learningCompletedValue">0 / ${modules.length}</strong>
+      </div>
+      <div>
+        <span>Autoevaluaciones</span>
+        <strong id="learningQuizValue">0 / ${modules.length}</strong>
+      </div>
+      <p id="learningNextStep">Comenzá por el primer módulo y marcá cada tema al terminar.</p>
+    </section>
+  `;
 
-  navigation.insertAdjacentHTML("beforebegin", modulesMarkup);
+  navigation.insertAdjacentHTML("beforebegin", `${dashboardMarkup}${modulesMarkup}`);
 }
 
 renderStudyModulesFromData();
@@ -232,21 +278,34 @@ function topicLabel(topic, index) {
 function renderIndexes() {
   indexContainers.forEach((container) => {
     container.innerHTML = "";
-    topics.forEach((topic, index) => {
-      const link = document.createElement("a");
-      link.href = `#${topic.id}`;
-      link.innerHTML = `<span class="topic-index__number">${index + 1}</span><span class="topic-index__text">${topicLabel(topic, index)}</span>`;
-      link.dataset.topicLink = "";
-      link.dataset.index = index;
-      link.classList.toggle("is-active", index === activeIndex);
-      link.classList.toggle("is-filtered-out", !matchedIndexes.includes(index));
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        activateTopic(index);
-        const offcanvas = bootstrap.Offcanvas.getInstance(document.querySelector("#indexMenu"));
-        if (offcanvas) offcanvas.hide();
+    const groups = [...new Set(topics.map((topic) => topic.dataset.group || "General"))];
+
+    groups.forEach((group) => {
+      const groupBox = document.createElement("section");
+      groupBox.className = "topic-index__group";
+      groupBox.innerHTML = `<p>${group}</p>`;
+
+      topics.forEach((topic, index) => {
+        if ((topic.dataset.group || "General") !== group) return;
+        const link = document.createElement("a");
+        link.href = `#${topic.id}`;
+        link.innerHTML = `<span class="topic-index__number">${index + 1}</span><span class="topic-index__text">${topicLabel(topic, index)}</span>`;
+        link.dataset.topicLink = "";
+        link.dataset.index = index;
+        link.classList.toggle("is-active", index === activeIndex);
+        link.classList.toggle("is-filtered-out", !matchedIndexes.includes(index));
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          activateTopic(index);
+          const offcanvas = bootstrap.Offcanvas.getInstance(document.querySelector("#indexMenu"));
+          if (offcanvas) offcanvas.hide();
+        });
+        groupBox.appendChild(link);
       });
-      container.appendChild(link);
+
+      if (groupBox.querySelector("a:not(.is-filtered-out)")) {
+        container.appendChild(groupBox);
+      }
     });
   });
 }
@@ -565,17 +624,54 @@ function openResource(title, path, type) {
   resourceModal.show();
 }
 
+function getCompletedTopicIds() {
+  const saved = JSON.parse(localStorage.getItem("mdp-completed-topics") || "[]");
+  const ids = saved
+    .map((item) => typeof item === "number" ? topics[item]?.dataset.moduleId : String(item))
+    .filter(Boolean);
+  localStorage.setItem("mdp-completed-topics", JSON.stringify([...new Set(ids)]));
+  return [...new Set(ids)];
+}
+
+function updateLearningDashboard() {
+  const completed = getCompletedTopicIds();
+  const quizResults = JSON.parse(localStorage.getItem("mdp-quiz-results") || "{}");
+  const completedCount = completed.length;
+  const quizCorrectCount = Object.values(quizResults).filter(Boolean).length;
+  const progress = Math.round(((completedCount + quizCorrectCount) / (topics.length * 2)) * 100);
+  const progressValue = document.querySelector("#learningProgressValue");
+  const completedValue = document.querySelector("#learningCompletedValue");
+  const quizValue = document.querySelector("#learningQuizValue");
+  const nextStep = document.querySelector("#learningNextStep");
+
+  if (!progressValue) return;
+
+  progressValue.textContent = `${progress}%`;
+  completedValue.textContent = `${completedCount} / ${topics.length}`;
+  quizValue.textContent = `${quizCorrectCount} / ${topics.length}`;
+
+  const nextTopic = topics.find((topic) => !completed.includes(topic.dataset.moduleId));
+  if (nextTopic) {
+    nextStep.textContent = `Próximo foco recomendado: ${nextTopic.querySelector("h2").textContent}.`;
+  } else if (quizCorrectCount < topics.length) {
+    nextStep.textContent = "Ya leíste todo. Ahora reforzá las autoevaluaciones que falten.";
+  } else {
+    nextStep.textContent = "Ruta completa. Pasá al simulacro de examen para detectar temas débiles.";
+  }
+}
+
 function bindStudyInteractions() {
-  const completed = JSON.parse(localStorage.getItem("mdp-completed-topics") || "[]");
+  const completed = getCompletedTopicIds();
 
   document.querySelectorAll("[data-complete-topic]").forEach((button) => {
-    const index = Number(button.dataset.completeTopic);
-    button.classList.toggle("is-complete", completed.includes(index));
+    const id = button.dataset.completeTopic;
+    button.classList.toggle("is-complete", completed.includes(id));
     button.addEventListener("click", () => {
       const saved = JSON.parse(localStorage.getItem("mdp-completed-topics") || "[]");
-      const next = saved.includes(index) ? saved.filter((item) => item !== index) : [...saved, index];
+      const next = saved.includes(id) ? saved.filter((item) => item !== id) : [...saved, id];
       localStorage.setItem("mdp-completed-topics", JSON.stringify(next));
-      button.classList.toggle("is-complete", next.includes(index));
+      button.classList.toggle("is-complete", next.includes(id));
+      updateLearningDashboard();
     });
   });
 
@@ -592,12 +688,19 @@ function bindStudyInteractions() {
     quiz.querySelectorAll("input").forEach((input) => {
       input.addEventListener("change", () => {
         const isCorrect = input.value === quiz.dataset.answer;
+        const topicId = quiz.closest("[data-topic]")?.dataset.moduleId;
+        const results = JSON.parse(localStorage.getItem("mdp-quiz-results") || "{}");
+        results[topicId] = isCorrect;
+        localStorage.setItem("mdp-quiz-results", JSON.stringify(results));
         quiz.classList.toggle("is-correct", isCorrect);
         quiz.classList.toggle("is-review", !isCorrect);
         feedback.textContent = isCorrect ? "Correcto. Buen punto para fijar." : "Revisar este concepto antes de avanzar.";
+        updateLearningDashboard();
       });
     });
   });
+
+  updateLearningDashboard();
 }
 
 themeToggle?.addEventListener("click", toggleTheme);

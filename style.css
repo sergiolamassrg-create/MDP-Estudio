@@ -359,6 +359,21 @@ h1 {
   scrollbar-color: color-mix(in srgb, var(--muted) 60%, transparent) transparent;
 }
 
+.topic-index__group {
+  display: grid;
+  gap: .4rem;
+  margin-bottom: .6rem;
+}
+
+.topic-index__group > p {
+  margin: .45rem 0 .15rem;
+  color: var(--accent);
+  font-size: .72rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
 .topic-index a {
   display: grid;
   grid-template-columns: 2rem minmax(0, 1fr);
@@ -448,6 +463,47 @@ h1 {
   color: #06221f;
   background: var(--accent);
   font-weight: 900;
+}
+
+.learning-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .75rem;
+  margin-bottom: 1rem;
+  padding: .9rem;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+}
+
+.learning-dashboard div {
+  min-width: 0;
+  padding: .75rem;
+  border: 1px solid var(--border);
+  border-radius: .85rem;
+  background: var(--card-soft);
+}
+
+.learning-dashboard span {
+  display: block;
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.learning-dashboard strong {
+  display: block;
+  margin-top: .25rem;
+  font-size: 1.35rem;
+}
+
+.learning-dashboard p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-weight: 750;
 }
 
 .study-card {
@@ -1283,6 +1339,10 @@ mark.is-current-match {
     align-self: flex-start;
     padding: .3rem .55rem;
     font-size: .9rem;
+  }
+
+  .learning-dashboard {
+    grid-template-columns: 1fr;
   }
 
   .row,

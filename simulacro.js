@@ -72,7 +72,7 @@ const examQuestions = [
     answer: 1,
     correctText: "Validación mira si el sistema resuelve la necesidad real; verificación mira si lo construido cumple la especificación.",
     remember: "En el parcial conviene decirlo corto: validar es valor para el usuario; verificar es cumplimiento contra lo pedido.",
-    ...commonReview.calidad
+    ...commonReview.fundamentos
   },
   {
     id: 2,
@@ -82,7 +82,7 @@ const examQuestions = [
     answer: false,
     correctText: "Falso.",
     remember: "Testing informa y encuentra evidencia. La calidad se construye con proceso, buenas decisiones y correcciones.",
-    ...commonReview.fundamentos
+    ...commonReview.calidad
   },
   {
     id: 3,
@@ -109,7 +109,7 @@ const examQuestions = [
     minKeywords: 3,
     correctText: "Ejemplos validos: las pruebas muestran defectos; pruebas exhaustivas son imposibles; testing temprano; agrupamiento de defectos; paradoja del pesticida; depende del contexto; ausencia de errores no implica utilidad.",
     remember: "No alcanza con nombrarlos: agrega una frase de explicacion para mostrar que los entendes.",
-    ...commonReview.riesgos
+    ...commonReview.principios
   },
   {
     id: 5,
@@ -119,7 +119,7 @@ const examQuestions = [
     answer: true,
     correctText: "Verdadero.",
     remember: "Como no se puede probar todo, se prioriza lo mas critico por riesgo, valor, plazo y recursos.",
-    ...commonReview.principios
+    ...commonReview.riesgos
   },
   {
     id: 6,
